@@ -1,18 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { AppContext, firebaseAppAuth } from "./AppContext";
+import { addCurrentUser } from "../actions";
 
 const SignIn = () => {
-  const [user, setUser] = useState(null);
+  const user = useSelector((state) => state.userReducer);
   const { signInWithGoogle } = useContext(AppContext);
+
+  const dispatch = useDispatch();
 
   console.log(user);
 
   const handleSignIn = () => {
     signInWithGoogle();
     firebaseAppAuth.onAuthStateChanged((user) => {
-      setUser(user);
+      dispatch(addCurrentUser(user));
     });
   };
 
@@ -22,10 +26,10 @@ const SignIn = () => {
 
   return (
     <>
-      {user !== null ? (
+      {user.currentUser !== null ? (
         <div>
-          <p>Welcome {user.displayName}</p>
-          <UserAvatar src={user.photoURL} style={{}} />
+          <p>Welcome {user.currentUser.displayName}</p>
+          <UserAvatar src={user.currentUser.photoURL} style={{}} />
           <button onClick={handleSignOut}>Sign Out</button>
         </div>
       ) : (
