@@ -1,7 +1,10 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect } from "react";
 import withFirebaseAuth from "react-with-firebase-auth";
 import * as firebase from "firebase";
 import "firebase/auth";
+
+import { useDispatch, useSelector } from "react-redux";
+import { signIn, refreshPage, checkingForUser } from "../actions";
 
 export const AppContext = createContext(null);
 
@@ -23,8 +26,37 @@ const providers = {
 };
 
 const AppProvider = ({ children, signInWithGoogle }) => {
+  const user = useSelector((state) => state.currentUserReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkingForUser());
+    const unlisten = firebaseAppAuth.onAuthStateChanged((user) => {
+      console.log(user);
+      dispatch(refreshPage(user));
+    });
+
+    return () => {
+      unlisten();
+    };
+  }, []);
+
+  const handleSignIn = () => {
+    signInWithGoogle();
+    firebaseAppAuth.onAuthStateChanged((user) => {
+      dispatch(checkingForUser());
+      dispatch(signIn(user));
+    });
+  };
+
+  const handleSignOut = () => {
+    firebaseAppAuth.signOut();
+  };
+
   return (
-    <AppContext.Provider value={{ signInWithGoogle }}>
+    <AppContext.Provider
+      value={{ signInWithGoogle, handleSignIn, handleSignOut }}
+    >
       {children}
     </AppContext.Provider>
   );

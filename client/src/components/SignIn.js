@@ -1,43 +1,33 @@
 import React, { useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { AppContext, firebaseAppAuth } from "./AppContext";
-import { addCurrentUser } from "../actions";
+import { AppContext } from "./AppContext";
 
 const SignIn = () => {
-  const user = useSelector((state) => state.userReducer);
-  const { signInWithGoogle } = useContext(AppContext);
-
-  const dispatch = useDispatch();
-
-  console.log(user);
-
-  const handleSignIn = () => {
-    signInWithGoogle();
-    firebaseAppAuth.onAuthStateChanged((user) => {
-      dispatch(addCurrentUser(user));
-    });
-  };
-
-  const handleSignOut = () => {
-    firebaseAppAuth.signOut();
-  };
+  const user = useSelector((state) => state.currentUserReducer);
+  const { handleSignIn, handleSignOut } = useContext(AppContext);
 
   return (
-    <Wrapper>
-      {user.currentUser !== null ? (
-        <CurrentUserWrapper>
-          <p>Welcome {user.currentUser.displayName}</p>
-          <UserAvatar src={user.currentUser.photoURL} style={{}} />
-          <button onClick={handleSignOut}>Sign Out</button>
-        </CurrentUserWrapper>
+    <>
+      {user.status === "loading" ? (
+        <div></div>
       ) : (
-        <div>
-          <button onClick={handleSignIn}>Sign In</button>
-        </div>
+        <Wrapper>
+          {user.currentUser !== null ? (
+            <CurrentUserWrapper>
+              <p>Welcome {user.currentUser.displayName}</p>
+              <UserAvatar src={user.currentUser.photoURL} style={{}} />
+              <button onClick={handleSignOut}>Sign Out</button>
+            </CurrentUserWrapper>
+          ) : (
+            <div>
+              <button onClick={handleSignIn}>Sign In</button>
+            </div>
+          )}
+        </Wrapper>
       )}
-    </Wrapper>
+    </>
   );
 };
 
