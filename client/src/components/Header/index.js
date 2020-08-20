@@ -23,14 +23,22 @@ const Header = () => {
 export default Header;
 
 const Wrapper = styled.div`
+  position: fixed;
+  height: 50px;
   width: 100vw;
   display: flex;
   justify-content: space-between;
-  border-bottom: 3px solid black;
+  align-items: center;
+  border-bottom: 3px solid white;
+  background-color: transparent;
 `;
 
 const Nav = styled.div`
+  padding: 0px 70px;
   a {
-    color: black;
+    padding: 0px 35px;
+    font-size: 1.5em;
+    color: white;
+    text-decoration: none;
   }
 `;

@@ -25,23 +25,32 @@ const SignIn = () => {
   };
 
   return (
-    <>
+    <Wrapper>
       {user.currentUser !== null ? (
-        <div>
+        <CurrentUserWrapper>
           <p>Welcome {user.currentUser.displayName}</p>
           <UserAvatar src={user.currentUser.photoURL} style={{}} />
           <button onClick={handleSignOut}>Sign Out</button>
-        </div>
+        </CurrentUserWrapper>
       ) : (
         <div>
           <button onClick={handleSignIn}>Sign In</button>
         </div>
       )}
-    </>
+    </Wrapper>
   );
 };
 
 export default SignIn;
+
+const Wrapper = styled.div`
+  padding: 0px 70px;
+`;
+
+const CurrentUserWrapper = styled.div`
+  color: white;
+  display: flex;
+`;
 
 const UserAvatar = styled.img`
   height: 25px;
