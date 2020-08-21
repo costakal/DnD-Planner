@@ -7,28 +7,27 @@ import Header from "./Header";
 import Home from "./Home";
 import CampaignSelect from "./Campaign/CampaignSelect/CampaignSelect";
 import SignIn from "./SignIn";
+import CombatTracker from "./Combat/CombatTracker";
 
 const App = () => {
   const loggedIn = useSelector((state) => state.currentUserReducer.currentUser);
-
-  console.log(loggedIn);
 
   return (
     <>
       <GlobalStyles />
       <Switch>
-        <Redirect exact from="/" to="/home" />
-        <Route exact path="/home">
-          <>
-            <Header />
-            <Home />
-          </>
+        <Route exact path={["/", "/home"]}>
+          <Header />
+          <Home />
         </Route>
-        <Route to="/campaign">
+        <Route exact path="/campaign">
           <SignIn />
           <CampaignSelect />
         </Route>
-        <Route to="/:campaign/overview"></Route>
+        <Route path="/campaign/:campaign/overview"></Route>
+        <Route path="/combat">
+          <CombatTracker />
+        </Route>
       </Switch>
       {/* {loggedIn ? <Redirect to="/campaign" /> : <Redirect to="/home" />} */}
     </>

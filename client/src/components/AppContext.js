@@ -3,7 +3,7 @@ import withFirebaseAuth from "react-with-firebase-auth";
 import * as firebase from "firebase";
 import "firebase/auth";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signIn, refreshPage, checkingForUser } from "../actions";
 import { useHistory } from "react-router-dom";
 
@@ -27,7 +27,6 @@ const providers = {
 };
 
 const AppProvider = ({ children, signInWithGoogle }) => {
-  const user = useSelector((state) => state.currentUserReducer);
   const dispatch = useDispatch();
   let history = useHistory();
 
@@ -40,6 +39,7 @@ const AppProvider = ({ children, signInWithGoogle }) => {
     return () => {
       unlisten();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSignIn = () => {

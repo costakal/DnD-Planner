@@ -14,4 +14,13 @@ export const refreshPage = (user) => ({
   user,
 });
 
-//other actions...
+//All monsters actions
+
+export const loadMonsters = () => ({
+  type: "LOAD_ALL_MONSTERS",
+});
+
+export const gettingMonsterList = (monsters) => ({
+  type: "GET_ALL_MONSTERS",
+  monsters,
+});
