@@ -1,22 +1,36 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
 import Home from "./Home";
+import CampaignSelect from "./Campaign/CampaignSelect/CampaignSelect";
+import SignIn from "./SignIn";
 
 const App = () => {
+  const loggedIn = useSelector((state) => state.currentUserReducer.currentUser);
+
+  console.log(loggedIn);
+
   return (
     <>
       <GlobalStyles />
-      <Router>
-        <Header />
-        <Switch>
-          <Route exact path="/">
+      <Switch>
+        <Redirect exact from="/" to="/home" />
+        <Route exact path="/home">
+          <>
+            <Header />
             <Home />
-          </Route>
-        </Switch>
-      </Router>
+          </>
+        </Route>
+        <Route to="/campaign">
+          <SignIn />
+          <CampaignSelect />
+        </Route>
+        <Route to="/:campaign/overview"></Route>
+      </Switch>
+      {/* {loggedIn ? <Redirect to="/campaign" /> : <Redirect to="/home" />} */}
     </>
   );
 };

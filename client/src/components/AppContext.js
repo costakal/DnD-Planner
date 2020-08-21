@@ -5,6 +5,7 @@ import "firebase/auth";
 
 import { useDispatch, useSelector } from "react-redux";
 import { signIn, refreshPage, checkingForUser } from "../actions";
+import { useHistory } from "react-router-dom";
 
 export const AppContext = createContext(null);
 
@@ -28,6 +29,7 @@ const providers = {
 const AppProvider = ({ children, signInWithGoogle }) => {
   const user = useSelector((state) => state.currentUserReducer);
   const dispatch = useDispatch();
+  let history = useHistory();
 
   useEffect(() => {
     dispatch(checkingForUser());
@@ -50,6 +52,8 @@ const AppProvider = ({ children, signInWithGoogle }) => {
 
   const handleSignOut = () => {
     firebaseAppAuth.signOut();
+    console.log(history);
+    history.push("/home");
   };
 
   return (
