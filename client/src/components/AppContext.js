@@ -32,7 +32,6 @@ const AppProvider = ({ children, signInWithGoogle }) => {
   useEffect(() => {
     dispatch(checkingForUser());
     const unlisten = firebaseAppAuth.onAuthStateChanged((user) => {
-      console.log(user);
       dispatch(refreshPage(user));
     });
 

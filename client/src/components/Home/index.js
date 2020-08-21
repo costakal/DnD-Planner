@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import banner from "../../assets/bg.jpg";
 
 const Home = () => {
+  const [monsters, setMonsters] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/monsters")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setMonsters(data);
+      });
+  }, []);
+
   return (
     <>
       <Hero>
