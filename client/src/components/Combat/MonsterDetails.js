@@ -5,10 +5,12 @@ const MonsterDetails = ({ monster, status }) => {
   return (
     <>
       {status === "ready" ? (
-        <div>
+        <StatBlock>
           <h2>{monster.name}</h2>
           <p>
-            {monster.size} {monster.type}, {monster.alignment}
+            {monster.size} {monster.type}
+            {monster.subtype !== null ? " (" + monster.subtype + ")" : ""},{" "}
+            {monster.alignment}
           </p>
           <p>
             <span>Armor Class </span>
@@ -64,43 +66,181 @@ const MonsterDetails = ({ monster, status }) => {
               <p>{monster.charisma}</p>
             </div>
           </AbilityScores>
-          {monster.proficiencies.find((prof) =>
-            prof.name.includes("Saving")
-          ) ? (
-            <div>
-              <p>Saving Throws: </p>
-              {monster.proficiencies
-                .filter((prof) => prof.name.includes("Saving"))
-                .map((prof) => {
-                  return (
+          <Proficiencies>
+            {monster.proficiencies.find((prof) =>
+              prof.name.includes("Saving")
+            ) ? (
+              <div>
+                <p>Saving Throws: </p>
+                {monster.proficiencies
+                  .filter((prof) => prof.name.includes("Saving"))
+                  .map((prof) => {
+                    return (
+                      <p>
+                        {prof.name.replace("Saving Throw:", "")}
+                        <span> +{prof.value}</span>
+                      </p>
+                    );
+                  })}
+              </div>
+            ) : (
+              <></>
+            )}
+            {monster.proficiencies.find((prof) =>
+              prof.name.includes("Skill")
+            ) ? (
+              <div>
+                <p>Skills: </p>
+                {monster.proficiencies
+                  .filter((prof) => prof.name.includes("Skill"))
+                  .map((prof) => {
+                    return (
+                      <p>
+                        {prof.name.replace("Skill:", "")}
+                        <span> +{prof.value}</span>
+                      </p>
+                    );
+                  })}
+              </div>
+            ) : (
+              <></>
+            )}
+            {monster.damage_immunities.length == 0 ? (
+              <></>
+            ) : (
+              <div>
+                <p>Damage Immunities: </p>
+                {monster.damage_immunities.map((imm) => (
+                  <p>{imm}</p>
+                ))}
+              </div>
+            )}
+            {monster.damage_resistances.length == 0 ? (
+              <></>
+            ) : (
+              <div>
+                <p>Damage Resistances: </p>
+                {monster.damage_resistances.map((res) => (
+                  <p>{res}</p>
+                ))}
+              </div>
+            )}
+            {monster.damage_vulnerabilities.length == 0 ? (
+              <></>
+            ) : (
+              <div>
+                <p>Damage Vulnerabilities: </p>
+                {monster.damage_vulnerabilities.map((vul) => (
+                  <p>{vul}</p>
+                ))}
+              </div>
+            )}
+            {monster.condition_immunities.length == 0 ? (
+              <></>
+            ) : (
+              <div>
+                <p>Condition Immunities: </p>
+                {monster.condition_immunities.map((con) => (
+                  <p>{con.name} </p>
+                ))}
+              </div>
+            )}
+            <>
+              {Object.keys(monster.senses).length !== 0 ? (
+                <div>
+                  <p>Senses: </p>
+                  {monster.senses.blindsight ? (
+                    <p>blindsight {monster.senses.blindsight}, </p>
+                  ) : (
+                    <></>
+                  )}
+                  {monster.senses.darkvision ? (
+                    <p>darkvision {monster.senses.darkvision}, </p>
+                  ) : (
+                    <></>
+                  )}
+                  {monster.senses.tremorsense ? (
+                    <p>tremorsense {monster.senses.tremorsense}, </p>
+                  ) : (
+                    <></>
+                  )}
+                  {monster.senses.truesight ? (
+                    <p>truesight {monster.senses.truesight}, </p>
+                  ) : (
+                    <></>
+                  )}
+                  {monster.senses.passive_perception ? (
                     <p>
-                      {prof.name.replace("Saving Throw:", "")}
-                      <span> +{prof.value}</span>
+                      passive perception {monster.senses.passive_perception},{" "}
                     </p>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              ) : (
+                <></>
+              )}
+            </>
+            {monster.languages !== "" ? (
+              <p>Languages: {monster.languages}</p>
+            ) : (
+              <></>
+            )}
+            <p>Challenge Rating: {monster.challenge_rating}</p>
+          </Proficiencies>
+          <SpecialTraits>
+            {monster.special_abilities ? (
+              <div>
+                {monster.special_abilities.map((spec) => {
+                  return (
+                    <>
+                      <p>{spec.name}</p>
+                      {spec.usage ? (
+                        <p>
+                          ({spec.usage.times}/{spec.usage.type})
+                        </p>
+                      ) : (
+                        <></>
+                      )}
+                      <p>{spec.desc}</p>
+                    </>
                   );
                 })}
-            </div>
-          ) : (
-            <></>
-          )}
-          {monster.proficiencies.find((prof) => prof.name.includes("Skill")) ? (
-            <div>
-              <p>Skills: </p>
-              {monster.proficiencies
-                .filter((prof) => prof.name.includes("Skill"))
-                .map((prof) => {
+              </div>
+            ) : (
+              <></>
+            )}
+          </SpecialTraits>
+          <Actions>
+            {monster.actions.map((action) => (
+              <div>
+                <p>{action.name}</p>
+                <p>{action.desc}</p>
+                {action.attack_bonus ? (
+                  <button>Attack +{action.attack_bonus}</button>
+                ) : (
+                  <></>
+                )}
+              </div>
+            ))}
+          </Actions>
+          <LegendaryActions>
+            {monster.legendary_actions ? (
+              <>
+                {monster.legendary_actions.map((leg) => {
                   return (
-                    <p>
-                      {prof.name.replace("Skill:", "")}
-                      <span> +{prof.value}</span>
-                    </p>
+                    <>
+                      <p>{leg.name}</p>
+                      <p>{leg.desc}</p>
+                    </>
                   );
                 })}
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </LegendaryActions>
+        </StatBlock>
       ) : (
         <></>
       )}
@@ -110,6 +250,16 @@ const MonsterDetails = ({ monster, status }) => {
 
 export default MonsterDetails;
 
+const StatBlock = styled.div``;
+
 const AbilityScores = styled.div`
   display: flex;
 `;
+
+const Proficiencies = styled.div``;
+
+const SpecialTraits = styled.div``;
+
+const Actions = styled.div``;
+
+const LegendaryActions = styled.div``;
