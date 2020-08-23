@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 
-const { getAllMonsters } = require("./handlers");
+const { getAllMonsters, getMonster } = require("./handlers");
 
 const PORT = 4000;
 
@@ -14,5 +14,6 @@ express()
   // REST endpoints
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
   .get("/monsters", getAllMonsters)
+  .get("/monsters/:monsterIndex", getMonster)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

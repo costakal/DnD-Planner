@@ -24,3 +24,14 @@ export const gettingMonsterList = (monsters) => ({
   type: "GET_ALL_MONSTERS",
   monsters,
 });
+
+// Get one monster
+
+export const loadMonster = () => ({
+  type: "LOAD_ONE_MONSTER",
+});
+
+export const getOneMonster = (monster) => ({
+  type: "GET_ONE_MONSTER",
+  monster,
+});

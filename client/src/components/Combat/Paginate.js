@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
 const Paginate = ({ monsters, setPageNumber }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const monsterPages = Math.ceil(monsters.monsterList.count / 10);
 
+  // mainly functional but some weird bugs to be fixed here!!!
   let maxPages = monsterPages;
   let items = [];
   let leftSide = currentPage - 2;

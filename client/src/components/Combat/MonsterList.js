@@ -17,6 +17,7 @@ const MonsterList = () => {
     fetch("http://localhost:3000/monsters")
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         dispatch(loadMonsters());
         dispatch(gettingMonsterList(data));
       });
@@ -28,7 +29,9 @@ const MonsterList = () => {
         <>
           <ul>
             {monsters.monsterList.results
-              .map((monster) => <MonsterItem monster={monster} />)
+              .map((monster) => (
+                <MonsterItem key={monster.index} monster={monster} />
+              ))
               .splice(pageNumber, 10)}
           </ul>
           <Paginate monsters={monsters} setPageNumber={setPageNumber} />

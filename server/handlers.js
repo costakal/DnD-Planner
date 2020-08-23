@@ -14,6 +14,18 @@ const getAllMonsters = (req, res) => {
     });
 };
 
+const getMonster = (req, res) => {
+  const monsterIndex = req.params.monsterIndex;
+  return request(`https://www.dnd5eapi.co/api/monsters/${monsterIndex}`)
+    .then((res) => JSON.parse(res))
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      return err.error ? JSON.parse(err.error) : err;
+    });
+};
+
 //requests from Open5e
 
-module.exports = { getAllMonsters };
+module.exports = { getAllMonsters, getMonster };
