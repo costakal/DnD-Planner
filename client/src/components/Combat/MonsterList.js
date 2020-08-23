@@ -17,7 +17,6 @@ const MonsterList = () => {
     fetch("http://localhost:3000/monsters")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch(loadMonsters());
         dispatch(gettingMonsterList(data));
       });

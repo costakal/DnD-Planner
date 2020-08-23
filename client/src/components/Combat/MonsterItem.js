@@ -8,9 +8,8 @@ const MonsterItem = ({ monster }) => {
   const dispatch = useDispatch();
   const monsterData = useSelector((state) => state.singleMonsterReducer);
 
+  const [currentMonster, setCurrentMonster] = useState({});
   const [detailsVisible, setDetailsVisible] = useState(false);
-
-  console.log(monsterData);
 
   useEffect(() => {
     fetch(`http://localhost:3000/monsters/${monster.index}`)
@@ -22,18 +21,27 @@ const MonsterItem = ({ monster }) => {
       });
   }, []);
 
+  useEffect(() => {
+    if (monsterData.monsters[monster.index]) {
+      setCurrentMonster(monsterData.monsters[monster.index]);
+    }
+  }, [monsterData.monsters]);
+
   return (
     <Wrapper>
-      {monsterData.status === "ready" ? (
+      {currentMonster.status === "ready" ? (
         <>
           <li key={monster.index}>{monster.name}</li>
-          <p>Challenge Rating: {monsterData.monster.challenge_rating}</p>
+          <p>Challenge Rating: {currentMonster.challenge_rating}</p>
           <button>Add to Combat</button>
           <button onClick={() => setDetailsVisible(!detailsVisible)}>
             More Details
           </button>
           {detailsVisible ? (
-            <MonsterDetails monster={monsterData.monster} />
+            <MonsterDetails
+              status={currentMonster.status}
+              monster={currentMonster}
+            />
           ) : (
             <></>
           )}

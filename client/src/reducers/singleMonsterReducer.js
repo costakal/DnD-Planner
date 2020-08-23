@@ -1,6 +1,6 @@
 const initialState = {
   status: "idle",
-  monster: null,
+  monsters: {},
 };
 
 export default function singleMonsterReducer(state = initialState, action) {
@@ -13,8 +13,10 @@ export default function singleMonsterReducer(state = initialState, action) {
     case "GET_ONE_MONSTER":
       return {
         ...state,
-        status: "ready",
-        monster: action.monster,
+        monsters: {
+          ...state.monsters,
+          [action.monster.index]: { ...action.monster, status: "ready" },
+        },
       };
     default: {
       return state;
