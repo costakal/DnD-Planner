@@ -6,102 +6,154 @@ const MonsterDetails = ({ monster, status }) => {
     <>
       {status === "ready" ? (
         <StatBlock>
-          <h2>{monster.name}</h2>
-          <p>
-            {monster.size} {monster.type}
-            {monster.subtype !== null ? " (" + monster.subtype + ")" : ""},{" "}
-            {monster.alignment}
-          </p>
-          <p>
-            <span>Armor Class </span>
-            {monster.armor_class}
-          </p>
-          <p>
-            <span>Hit Points </span>
-            {monster.hit_points} {monster.hit_dice}
-          </p>
-          <p>
-            Speed
-            {monster.speed.walk ? <span> {monster.speed.walk}</span> : <></>}
-            {monster.speed.burrow ? (
-              <span>, burrow {monster.speed.burrow}</span>
-            ) : (
-              <></>
-            )}
-            {monster.speed.climb ? (
-              <span>, climb {monster.speed.climb}</span>
-            ) : (
-              <></>
-            )}
-            {monster.speed.fly ? <span>, fly {monster.speed.fly}</span> : <></>}
-            {monster.speed.swim ? (
-              <span>, swim {monster.speed.swim}</span>
-            ) : (
-              <></>
-            )}
-          </p>
+          <MainDetails>
+            <h2>{monster.name}</h2>
+            <p>
+              {monster.size} {monster.type}
+              {monster.subtype !== null
+                ? " (" + monster.subtype + ")"
+                : ""}, {monster.alignment}
+            </p>
+          </MainDetails>
+          <MainStats>
+            <p>
+              Armor Class <span>{monster.armor_class}</span>
+            </p>
+            <p>
+              Hit Points{" "}
+              <span>
+                {monster.hit_points} ({monster.hit_dice})
+              </span>
+            </p>
+            <p>
+              Speed
+              {monster.speed.walk ? <span> {monster.speed.walk}</span> : <></>}
+              {monster.speed.burrow ? (
+                <span>, burrow {monster.speed.burrow}</span>
+              ) : (
+                <></>
+              )}
+              {monster.speed.climb ? (
+                <span>, climb {monster.speed.climb}</span>
+              ) : (
+                <></>
+              )}
+              {monster.speed.fly ? (
+                <span>, fly {monster.speed.fly}</span>
+              ) : (
+                <></>
+              )}
+              {monster.speed.swim ? (
+                <span>, swim {monster.speed.swim}</span>
+              ) : (
+                <></>
+              )}
+            </p>
+          </MainStats>
           <AbilityScores>
             <div>
-              <p>STR</p>
-              <p>{monster.strength}</p>
+              <h4>STR</h4>
+              <p>
+                {monster.strength}{" "}
+                {Math.floor((monster.strength - 10) / 2) < 0 ? (
+                  <span>({Math.floor((monster.strength - 10) / 2)})</span>
+                ) : (
+                  <span>(+{Math.floor((monster.strength - 10) / 2)})</span>
+                )}
+              </p>
             </div>
             <div>
-              <p>DEX</p>
-              <p>{monster.dexterity}</p>
+              <h4>DEX</h4>
+              <p>
+                {monster.dexterity}{" "}
+                {Math.floor((monster.dexterity - 10) / 2) < 0 ? (
+                  <span>({Math.floor((monster.dexterity - 10) / 2)})</span>
+                ) : (
+                  <span>(+{Math.floor((monster.dexterity - 10) / 2)})</span>
+                )}
+              </p>
             </div>
             <div>
-              <p>CON</p>
-              <p>{monster.constitution}</p>
+              <h4>CON</h4>
+              <p>
+                {monster.constitution}{" "}
+                {Math.floor((monster.constitution - 10) / 2) < 0 ? (
+                  <span>({Math.floor((monster.constitution - 10) / 2)})</span>
+                ) : (
+                  <span>(+{Math.floor((monster.constitution - 10) / 2)})</span>
+                )}
+              </p>
             </div>
             <div>
-              <p>INT</p>
-              <p>{monster.intelligence}</p>
+              <h4>INT</h4>
+              <p>
+                {monster.intelligence}{" "}
+                {Math.floor((monster.intelligence - 10) / 2) < 0 ? (
+                  <span>({Math.floor((monster.intelligence - 10) / 2)})</span>
+                ) : (
+                  <span>(+{Math.floor((monster.intelligence - 10) / 2)})</span>
+                )}
+              </p>
             </div>
             <div>
-              <p>WIS</p>
-              <p>{monster.wisdom}</p>
+              <h4>WIS</h4>
+              <p>
+                {monster.wisdom}{" "}
+                {Math.floor((monster.wisdom - 10) / 2) < 0 ? (
+                  <span>({Math.floor((monster.wisdom - 10) / 2)})</span>
+                ) : (
+                  <span>(+{Math.floor((monster.wisdom - 10) / 2)})</span>
+                )}
+              </p>
             </div>
             <div>
-              <p>CHA</p>
-              <p>{monster.charisma}</p>
+              <h4>CHA</h4>
+              <p>
+                {monster.charisma}{" "}
+                {Math.floor((monster.charisma - 10) / 2) < 0 ? (
+                  <span>({Math.floor((monster.charisma - 10) / 2)})</span>
+                ) : (
+                  <span>(+{Math.floor((monster.charisma - 10) / 2)})</span>
+                )}
+              </p>
             </div>
           </AbilityScores>
           <Proficiencies>
             {monster.proficiencies.find((prof) =>
               prof.name.includes("Saving")
             ) ? (
-              <div>
-                <p>Saving Throws: </p>
+              <SavingThrows>
+                <h4>Saving Throws: </h4>
                 {monster.proficiencies
                   .filter((prof) => prof.name.includes("Saving"))
                   .map((prof) => {
                     return (
                       <p>
                         {prof.name.replace("Saving Throw:", "")}
-                        <span> +{prof.value}</span>
+                        <span>+{prof.value + " "}</span>
                       </p>
                     );
                   })}
-              </div>
+              </SavingThrows>
             ) : (
               <></>
             )}
             {monster.proficiencies.find((prof) =>
               prof.name.includes("Skill")
             ) ? (
-              <div>
-                <p>Skills: </p>
+              <Skills>
+                <h4>Skills: </h4>
                 {monster.proficiencies
                   .filter((prof) => prof.name.includes("Skill"))
                   .map((prof) => {
                     return (
                       <p>
                         {prof.name.replace("Skill:", "")}
-                        <span> +{prof.value}</span>
+                        <span>+{prof.value + " "}</span>
                       </p>
                     );
                   })}
-              </div>
+              </Skills>
             ) : (
               <></>
             )}
@@ -109,7 +161,7 @@ const MonsterDetails = ({ monster, status }) => {
               <></>
             ) : (
               <div>
-                <p>Damage Immunities: </p>
+                <h4>Damage Immunities: </h4>
                 {monster.damage_immunities.map((imm) => (
                   <p>{imm}</p>
                 ))}
@@ -119,7 +171,7 @@ const MonsterDetails = ({ monster, status }) => {
               <></>
             ) : (
               <div>
-                <p>Damage Resistances: </p>
+                <h4>Damage Resistances: </h4>
                 {monster.damage_resistances.map((res) => (
                   <p>{res}</p>
                 ))}
@@ -129,7 +181,7 @@ const MonsterDetails = ({ monster, status }) => {
               <></>
             ) : (
               <div>
-                <p>Damage Vulnerabilities: </p>
+                <h4>Damage Vulnerabilities: </h4>
                 {monster.damage_vulnerabilities.map((vul) => (
                   <p>{vul}</p>
                 ))}
@@ -139,7 +191,7 @@ const MonsterDetails = ({ monster, status }) => {
               <></>
             ) : (
               <div>
-                <p>Condition Immunities: </p>
+                <h4>Condition Immunities: </h4>
                 {monster.condition_immunities.map((con) => (
                   <p>{con.name} </p>
                 ))}
@@ -148,7 +200,7 @@ const MonsterDetails = ({ monster, status }) => {
             <>
               {Object.keys(monster.senses).length !== 0 ? (
                 <div>
-                  <p>Senses: </p>
+                  <h4>Senses: </h4>
                   {monster.senses.blindsight ? (
                     <p>blindsight {monster.senses.blindsight}, </p>
                   ) : (
@@ -182,28 +234,38 @@ const MonsterDetails = ({ monster, status }) => {
               )}
             </>
             {monster.languages !== "" ? (
-              <p>Languages: {monster.languages}</p>
+              <div>
+                <h4>
+                  Languages: <span>{monster.languages}</span>
+                </h4>
+              </div>
             ) : (
               <></>
             )}
-            <p>Challenge Rating: {monster.challenge_rating}</p>
+            <div>
+              <h4>
+                Challenge Rating: <span>{monster.challenge_rating}</span>
+              </h4>
+            </div>
           </Proficiencies>
           <SpecialTraits>
             {monster.special_abilities ? (
               <div>
                 {monster.special_abilities.map((spec) => {
                   return (
-                    <>
-                      <p>{spec.name}</p>
-                      {spec.usage ? (
-                        <p>
-                          ({spec.usage.times}/{spec.usage.type})
-                        </p>
-                      ) : (
-                        <></>
-                      )}
-                      <p>{spec.desc}</p>
-                    </>
+                    <div>
+                      <p>
+                        {spec.name}.{" "}
+                        {spec.usage ? (
+                          <span>
+                            ({spec.usage.times}/{spec.usage.type})
+                          </span>
+                        ) : (
+                          <></>
+                        )}
+                        <span>{spec.desc}</span>
+                      </p>
+                    </div>
                   );
                 })}
               </div>
@@ -212,10 +274,14 @@ const MonsterDetails = ({ monster, status }) => {
             )}
           </SpecialTraits>
           <Actions>
+            <div>
+              <h3>Actions</h3>
+            </div>
             {monster.actions.map((action) => (
               <div>
-                <p>{action.name}</p>
-                <p>{action.desc}</p>
+                <p>
+                  {action.name}. <span>{action.desc}</span>
+                </p>
                 {action.attack_bonus ? (
                   <button>Attack +{action.attack_bonus}</button>
                 ) : (
@@ -226,16 +292,16 @@ const MonsterDetails = ({ monster, status }) => {
           </Actions>
           <LegendaryActions>
             {monster.legendary_actions ? (
-              <>
+              <div>
+                <h3>Legendary Actions</h3>
                 {monster.legendary_actions.map((leg) => {
                   return (
-                    <>
-                      <p>{leg.name}</p>
-                      <p>{leg.desc}</p>
-                    </>
+                    <p>
+                      {leg.name}. <span>{leg.desc}</span>
+                    </p>
                   );
                 })}
-              </>
+              </div>
             ) : (
               <></>
             )}
@@ -250,16 +316,128 @@ const MonsterDetails = ({ monster, status }) => {
 
 export default MonsterDetails;
 
-const StatBlock = styled.div``;
+const StatBlock = styled.div`
+  line-height: 1.2em;
+`;
+
+const MainDetails = styled.div`
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  p {
+    font-style: italic;
+  }
+`;
+
+const MainStats = styled.div`
+  border-top: solid red 1px;
+  p {
+    font-weight: bold;
+    span {
+      font-weight: normal;
+    }
+  }
+`;
 
 const AbilityScores = styled.div`
   display: flex;
+  border-top: solid red 1px;
+  text-align: center;
+  div {
+    padding: 5px 15px;
+    h4 {
+      font-weight: bold;
+    }
+  }
 `;
 
-const Proficiencies = styled.div``;
+const Proficiencies = styled.div`
+  padding: 5px 0px;
+  border-top: solid red 1px;
 
-const SpecialTraits = styled.div``;
+  div {
+    display: flex;
+    h4 {
+      font-weight: bold;
+      padding-right: 5px;
+      span {
+        font-weight: normal;
+        padding-right: 5px;
+      }
+    }
+    p {
+      padding-right: 5px;
+    }
+  }
+`;
 
-const Actions = styled.div``;
+const SavingThrows = styled.div`
+  display: flex;
+  h4 {
+    padding-right: 5px;
+  }
+  p {
+    padding-right: 8px;
+    span {
+      padding-left: 2px;
+    }
+  }
+`;
+const Skills = styled.div`
+  display: flex;
+  h4 {
+    padding-right: 5px;
+  }
+  p {
+    padding-right: 8px;
+    span {
+      padding-left: 2px;
+    }
+  }
+`;
 
-const LegendaryActions = styled.div``;
+const SpecialTraits = styled.div`
+  border-top: solid 1px red;
+  div {
+    margin: 5px 0px 10px;
+    p {
+      font-weight: bold;
+      span {
+        font-weight: normal;
+      }
+    }
+  }
+`;
+
+const Actions = styled.div`
+  div {
+    padding: 5px 0px;
+    h3 {
+      font-size: 20px;
+      border-bottom: solid red 1px;
+    }
+    p {
+      font-weight: bold;
+      span {
+        font-weight: normal;
+      }
+    }
+  }
+`;
+
+const LegendaryActions = styled.div`
+    h3 {
+      padding-top: 10px;
+      font-size: 20px;
+      border-bottom: solid red 1px;
+    }
+    p {
+      padding: 2px 0px;
+      font-weight: bold;
+      span {
+        font-weight: normal;
+      }
+    }
+  }
+`;

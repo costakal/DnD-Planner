@@ -32,6 +32,8 @@ const MonsterItem = ({ monster }) => {
       {currentMonster.status === "ready" ? (
         <>
           <li key={monster.index}>{monster.name}</li>
+          <p style={{ fontStyle: "italic" }}> {currentMonster.type}</p>
+
           <p>Challenge Rating: {currentMonster.challenge_rating}</p>
           <button>Add to Combat</button>
           <button onClick={() => setDetailsVisible(!detailsVisible)}>
