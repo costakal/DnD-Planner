@@ -35,3 +35,14 @@ export const getOneMonster = (monster) => ({
   type: "GET_ONE_MONSTER",
   monster,
 });
+
+//Get Monster Details
+
+export const loadMonsterDetails = () => ({
+  type: "LOAD_MONSTERS_DETAILS",
+});
+
+export const getMonsterDetails = (monsters) => ({
+  type: "GET_MONSTER_DETAILS",
+  monsters,
+});

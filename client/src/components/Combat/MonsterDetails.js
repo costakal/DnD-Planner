@@ -427,17 +427,16 @@ const Actions = styled.div`
 `;
 
 const LegendaryActions = styled.div`
-    h3 {
-      padding-top: 10px;
-      font-size: 20px;
-      border-bottom: solid red 1px;
-    }
-    p {
-      padding: 2px 0px;
-      font-weight: bold;
-      span {
-        font-weight: normal;
-      }
+  h3 {
+    padding-top: 10px;
+    font-size: 20px;
+    border-bottom: solid red 1px;
+  }
+  p {
+    padding: 2px 0px;
+    font-weight: bold;
+    span {
+      font-weight: normal;
     }
   }
 `;

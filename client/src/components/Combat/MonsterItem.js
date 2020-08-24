@@ -12,10 +12,9 @@ const MonsterItem = ({ monster }) => {
   const [detailsVisible, setDetailsVisible] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/monsters/${monster.index}`)
+    fetch(`/monsters/${monster.index}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch(loadMonster());
         dispatch(getOneMonster(data));
       });
@@ -32,18 +31,15 @@ const MonsterItem = ({ monster }) => {
       {currentMonster.status === "ready" ? (
         <>
           <li key={monster.index}>{monster.name}</li>
-          <p style={{ fontStyle: "italic" }}> {currentMonster.type}</p>
+          <p style={{ fontStyle: "italic" }}> {monster.type}</p>
 
-          <p>Challenge Rating: {currentMonster.challenge_rating}</p>
+          <p>Challenge Rating: {monster.challenge_rating}</p>
           <button>Add to Combat</button>
           <button onClick={() => setDetailsVisible(!detailsVisible)}>
             More Details
           </button>
           {detailsVisible ? (
-            <MonsterDetails
-              status={currentMonster.status}
-              monster={currentMonster}
-            />
+            <MonsterDetails status={currentMonster.status} monster={monster} />
           ) : (
             <></>
           )}

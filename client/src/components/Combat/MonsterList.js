@@ -1,33 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { loadMonsters, gettingMonsterList } from "../../actions";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import MonsterItem from "./MonsterItem";
 import Paginate from "./Paginate";
 
 const MonsterList = () => {
   const monsters = useSelector((state) => state.monstersReducer);
-  const dispatch = useDispatch();
+  const monsterArray = useSelector((state) => state.monsterDetailsReducer);
   const [pageNumber, setPageNumber] = useState(0);
-
-  console.log(pageNumber);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/monsters")
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(loadMonsters());
-        dispatch(gettingMonsterList(data));
-      });
-  }, []);
 
   return (
     <>
-      {monsters.status === "ready" ? (
+      {monsterArray.status === "ready" ? (
         <>
+          <button>Sort By Type</button>
+          <button>CR Low to High</button>
+          <button>CR High to Low</button>
           <ul>
-            {monsters.monsterList.results
+            {monsterArray.monsters
               .map((monster) => (
                 <MonsterItem key={monster.index} monster={monster} />
               ))
