@@ -3,6 +3,7 @@ import { DiceRoller } from "rpg-dice-roller";
 import styled from "styled-components";
 
 import Dice from "./Dice";
+import DiceTray from "./DiceTray";
 
 import d4 from "../../assets/d4.svg";
 import d6 from "../../assets/d6.svg";
@@ -27,8 +28,25 @@ const DiceSelector = () => {
 
   return (
     <Wrapper>
-      <DiceTray>
-        {" "}
+      <DiceTray total={total} results={results} />
+      <DiceModifiers>
+        <input
+          maxlength="3"
+          value={diceTotal}
+          onChange={(ev) => {
+            setDiceTotal(ev.target.value);
+          }}
+        />
+        <p>d+</p>
+        <input
+          onChange={(ev) => {
+            if (ev.target.value !== "") {
+              setModifier(ev.target.value);
+            }
+          }}
+        />
+      </DiceModifiers>
+      <DiceOptions>
         <Dice
           roll={rollD4}
           image={d4}
@@ -65,28 +83,36 @@ const DiceSelector = () => {
           setResults={setResults}
           setTotal={setTotal}
         />
-      </DiceTray>
-      <div>
-        <input
-          value={diceTotal}
-          onChange={(ev) => {
-            setDiceTotal(ev.target.value);
-          }}
-        />
-        <p>{modifier}</p>
-        <button onClick={() => setModifier(modifier + 1)}>+</button>
-        <button onClick={() => setModifier(modifier - 1)}>-</button>
-        <div>Your roll results are: {results}</div>
-        <div>Your total: {total} </div>
-      </div>
+      </DiceOptions>
     </Wrapper>
   );
 };
 
 export default DiceSelector;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 600px;
+  height: 400px;
+  border: solid 2px black;
+`;
 
-const DiceTray = styled.div`
+const DiceModifiers = styled.div`
+  display: flex;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: center;
+  p {
+  }
+  input {
+    font-size: 30px;
+    width: 50px;
+    text-align: right;
+  }
+  button {
+  }
+  font-size: 30px;
+`;
+
+const DiceOptions = styled.div`
   display: flex;
 `;

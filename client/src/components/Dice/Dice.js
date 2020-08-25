@@ -10,7 +10,7 @@ const Dice = ({ roll, image, setTotal, setResults }) => {
           setResults(roll.output);
         }}
       >
-        <img src={image} style={{ width: "100px" }} />
+        <img src={image} style={{ width: "100%" }} />
       </button>
     </Wrapper>
   );
@@ -18,4 +18,8 @@ const Dice = ({ roll, image, setTotal, setResults }) => {
 
 export default Dice;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  button {
+    max-width: 100px;
+  }
+`;
