@@ -44,8 +44,8 @@ const Paginate = ({ monsters, setPageNumber }) => {
       <div> Current Page: {currentPage} </div>
       <div>
         <button onClick={prevPage}> &lsaquo; </button>
-        {items.map((item) => (
-          <button>{item}</button>
+        {items.map((item, index) => (
+          <button key={index}>{item}</button>
         ))}
         <button onClick={nextPage}> &rsaquo; </button>
       </div>
