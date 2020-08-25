@@ -11,8 +11,11 @@ const Header = () => {
         <NavLink exact to="/" activeStyle={{ color: "red" }}>
           About
         </NavLink>
-        <NavLink exact to="/fake" activeStyle={{ color: "red" }}>
+        <NavLink exact to="/combat" activeStyle={{ color: "red" }}>
           Features
+        </NavLink>
+        <NavLink exact to="/dice" activeStyle={{ color: "red" }}>
+          Dice
         </NavLink>
       </Nav>
       <SignIn />

@@ -39,7 +39,10 @@ const MonsterItem = ({ monster }) => {
             More Details
           </button>
           {detailsVisible ? (
-            <MonsterDetails status={currentMonster.status} monster={monster} />
+            <MonsterDetails
+              status={currentMonster.status}
+              monster={currentMonster}
+            />
           ) : (
             <></>
           )}

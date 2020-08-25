@@ -14,6 +14,7 @@ import {
   loadMonsterDetails,
   getMonsterDetails,
 } from "../actions";
+import DiceSelector from "./Dice/DiceSelector";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,31 +32,31 @@ const App = () => {
 
   let monsterDetailsArray = [];
 
-  useEffect(() => {
-    if (monsters.status === "ready") {
-      monsters.monsterList.results.forEach((monster) => {
-        fetch(`/monsters/${monster.index}`)
-          .then((res) => res.json())
-          .then((data) => {
-            monsterDetailsArray.push(data);
-            console.log(
-              monsters.monsterList.results.length,
-              monsterDetailsArray.length
-            );
-            if (
-              monsters.monsterList.results.length === monsterDetailsArray.length
-            ) {
-              dispatch(loadMonsterDetails());
-              dispatch(getMonsterDetails(monsterDetailsArray));
-            }
-          })
-          .catch((err) => {
-            dispatch(loadMonsterDetails());
-            dispatch(getMonsterDetails(monsterDetailsArray));
-          });
-      });
-    }
-  }, [monsters.status]);
+  // useEffect(() => {
+  //   if (monsters.status === "ready") {
+  //     monsters.monsterList.results.forEach((monster) => {
+  //       fetch(`/monsters/${monster.index}`)
+  //         .then((res) => res.json())
+  //         .then((data) => {
+  //           monsterDetailsArray.push(data);
+  //           console.log(
+  //             monsters.monsterList.results.length,
+  //             monsterDetailsArray.length
+  //           );
+  //           if (
+  //             monsters.monsterList.results.length === monsterDetailsArray.length
+  //           ) {
+  //             dispatch(loadMonsterDetails());
+  //             dispatch(getMonsterDetails(monsterDetailsArray));
+  //           }
+  //         })
+  //         .catch((err) => {
+  //           dispatch(loadMonsterDetails());
+  //           dispatch(getMonsterDetails(monsterDetailsArray));
+  //         });
+  //     });
+  //   }
+  // }, [monsters.status]);
 
   return (
     <>
@@ -72,6 +73,9 @@ const App = () => {
         <Route path="/campaign/:campaign/overview"></Route>
         <Route path="/combat">
           <CombatTracker />
+        </Route>
+        <Route path="/dice">
+          <DiceSelector />
         </Route>
       </Switch>
       {/* {loggedIn ? <Redirect to="/campaign" /> : <Redirect to="/home" />} */}
