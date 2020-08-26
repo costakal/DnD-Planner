@@ -30,33 +30,43 @@ const App = () => {
       });
   }, []);
 
-  let monsterDetailsArray = [];
+  // let monsterDetailsArray = [];
+
+  // useEffect(() => {
+  //   if (monsters.status === "ready") {
+  //     monsters.monsterList.results.forEach((monster) => {
+  //       fetch(`/monsters/${monster.index}`)
+  //         .then((res) => res.json())
+  //         .then((data) => {
+  //           monsterDetailsArray.push(data);
+  //           console.log(
+  //             monsters.monsterList.results.length,
+  //             monsterDetailsArray.length
+  //           );
+  //           if (
+  //             monsters.monsterList.results.length === monsterDetailsArray.length
+  //           ) {
+  // dispatch(loadMonsterDetails());
+  // dispatch(getMonsterDetails(monsterDetailsArray));
+  //           }
+  //         })
+  //         .catch((err) => {
+  //           dispatch(loadMonsterDetails());
+  //           dispatch(getMonsterDetails(monsterDetailsArray));
+  //         });
+  //     });
+  //   }
+  // }, [monsters.status]);
 
   useEffect(() => {
-    if (monsters.status === "ready") {
-      monsters.monsterList.results.forEach((monster) => {
-        fetch(`/monsters/${monster.index}`)
-          .then((res) => res.json())
-          .then((data) => {
-            monsterDetailsArray.push(data);
-            console.log(
-              monsters.monsterList.results.length,
-              monsterDetailsArray.length
-            );
-            if (
-              monsters.monsterList.results.length === monsterDetailsArray.length
-            ) {
-              dispatch(loadMonsterDetails());
-              dispatch(getMonsterDetails(monsterDetailsArray));
-            }
-          })
-          .catch((err) => {
-            dispatch(loadMonsterDetails());
-            dispatch(getMonsterDetails(monsterDetailsArray));
-          });
+    fetch("/allmonsters")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch(loadMonsterDetails());
+        dispatch(getMonsterDetails(data));
       });
-    }
-  }, [monsters.status]);
+  }, []);
 
   return (
     <>
