@@ -19,7 +19,6 @@ const CombatTracker = () => {
 export default CombatTracker;
 
 const CombatPage = styled.div`
-  overflow-y: none;
   display: flex;
   height: 100vh;
   width: 100%;
