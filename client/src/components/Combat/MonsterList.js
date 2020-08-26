@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useSelector } from "react-redux";
 
+import Loading from "../../Loading";
 import MonsterItem from "./MonsterItem";
 import Paginate from "./Paginate";
 import TypeFilter from "./TypeFilter";
@@ -13,7 +15,7 @@ const MonsterList = () => {
   const [monsterName, setmonsterName] = useState("");
 
   return (
-    <>
+    <Wrapper>
       <TypeFilter
         setFilteredType={setFilteredType}
         setPageNumber={setPageNumber}
@@ -70,10 +72,19 @@ const MonsterList = () => {
           <Paginate monsters={monsters} setPageNumber={setPageNumber} />
         </>
       ) : (
-        <></>
+        <>
+          <Loading />
+          <h4>this may take up to 30 seconds</h4>
+          <p>loading monsters...</p>
+        </>
       )}
-    </>
+    </Wrapper>
   );
 };
 
 export default MonsterList;
+
+const Wrapper = styled.div`
+  flex-grow: 2;
+  max-width: 500px;
+`;

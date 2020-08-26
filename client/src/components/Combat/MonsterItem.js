@@ -60,4 +60,5 @@ const Wrapper = styled.div`
   margin: 5px 10px;
   border: 1px dashed grey;
   padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
 `;

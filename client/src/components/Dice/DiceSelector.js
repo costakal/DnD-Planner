@@ -91,6 +91,7 @@ const DiceSelector = () => {
 export default DiceSelector;
 
 const Wrapper = styled.div`
+  flex-grow: 1;
   width: 600px;
   height: 400px;
   border: solid 2px black;

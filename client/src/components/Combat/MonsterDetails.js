@@ -128,7 +128,7 @@ const MonsterDetails = ({ monster, status }) => {
                   .filter((prof) => prof.name.includes("Saving"))
                   .map((prof) => {
                     return (
-                      <p>
+                      <p key={prof.name}>
                         {prof.name.replace("Saving Throw:", "")}
                         <span>+{prof.value + " "}</span>
                       </p>
@@ -161,40 +161,48 @@ const MonsterDetails = ({ monster, status }) => {
               <></>
             ) : (
               <div>
-                <h4>Damage Immunities: </h4>
-                {monster.damage_immunities.map((imm) => (
-                  <p>{imm}</p>
-                ))}
+                <h4>
+                  Damage Immunities:{" "}
+                  {monster.damage_immunities.map((imm) => (
+                    <span>{imm}</span>
+                  ))}
+                </h4>
               </div>
             )}
             {monster.damage_resistances.length == 0 ? (
               <></>
             ) : (
               <div>
-                <h4>Damage Resistances: </h4>
-                {monster.damage_resistances.map((res) => (
-                  <p>{res}</p>
-                ))}
+                <h4>
+                  Damage Resistances:{" "}
+                  {monster.damage_resistances.map((res) => (
+                    <span>{res}</span>
+                  ))}
+                </h4>
               </div>
             )}
             {monster.damage_vulnerabilities.length == 0 ? (
               <></>
             ) : (
               <div>
-                <h4>Damage Vulnerabilities: </h4>
-                {monster.damage_vulnerabilities.map((vul) => (
-                  <p>{vul}</p>
-                ))}
+                <h4>
+                  Damage Vulnerabilities:{" "}
+                  {monster.damage_vulnerabilities.map((vul) => (
+                    <span>{vul}</span>
+                  ))}
+                </h4>
               </div>
             )}
             {monster.condition_immunities.length == 0 ? (
               <></>
             ) : (
               <div>
-                <h4>Condition Immunities: </h4>
-                {monster.condition_immunities.map((con) => (
-                  <p>{con.name} </p>
-                ))}
+                <h4>
+                  Condition Immunities:{" "}
+                  {monster.condition_immunities.map((con) => (
+                    <span>{con.name} </span>
+                  ))}
+                </h4>
               </div>
             )}
             <>
