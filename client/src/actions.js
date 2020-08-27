@@ -56,3 +56,14 @@ export const addMonster = (monster) => ({
   type: "ADD_TO_INITIATIVE",
   monster,
 });
+
+export const removeMonster = (monster) => ({
+  type: "DELETE_FROM_INITIATIVE",
+  monster,
+});
+
+export const updateHealth = (health, monsterKey) => ({
+  type: "CHANGE_HIT_POINTS",
+  health,
+  monsterKey,
+});

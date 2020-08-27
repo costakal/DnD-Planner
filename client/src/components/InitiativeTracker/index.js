@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import InitiativeMonster from "./IntiativeMonster";
 
 const InitiativeTracker = () => {
+  const initiative = useSelector((state) => state.addToInitiative);
+
+  console.log(initiative);
   return (
     <Wrapper>
-      <InitiativeMonster />
-      <InitiativeMonster />
-      <InitiativeMonster />
+      {initiative.status === "ready" ? (
+        <>
+          {Object.keys(initiative.monsterInit).map((key) => (
+            <InitiativeMonster monsterKey={key} />
+          ))}
+        </>
+      ) : (
+        <></>
+      )}
     </Wrapper>
   );
 };
