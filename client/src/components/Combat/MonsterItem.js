@@ -2,33 +2,39 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import MonsterDetails from "./MonsterDetails";
-import { loadMonster, getOneMonster } from "../../actions";
+import {
+  loadMonster,
+  getOneMonster,
+  loadAddMonster,
+  addMonster,
+} from "../../actions";
 
 const MonsterItem = ({ monster }) => {
   const dispatch = useDispatch();
-  const monsterData = useSelector((state) => state.singleMonsterReducer);
+  // const monsterData = useSelector((state) => state.singleMonsterReducer);
+  const monsterData = useSelector((state) => state.monsterDetailsReducer);
 
-  const [currentMonster, setCurrentMonster] = useState({});
+  // const [currentMonster, setCurrentMonster] = useState({});
   const [detailsVisible, setDetailsVisible] = useState(false);
 
-  useEffect(() => {
-    fetch(`/monsters/${monster.index}`)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(loadMonster());
-        dispatch(getOneMonster(data));
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(`/monsters/${monster.index}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       dispatch(loadMonster());
+  //       dispatch(getOneMonster(data));
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    if (monsterData.monsters[monster.index]) {
-      setCurrentMonster(monsterData.monsters[monster.index]);
-    }
-  }, [monsterData.monsters]);
+  // useEffect(() => {
+  //   if (monsterData.monsters[monster.index]) {
+  //     setCurrentMonster(monsterData.monsters[monster.index]);
+  //   }
+  // }, [monsterData.monsters]);
 
   return (
     <Wrapper>
-      {currentMonster.status === "ready" ? (
+      {monsterData.status === "ready" ? (
         <>
           <MonsterInfo>
             <Details>
@@ -39,7 +45,14 @@ const MonsterItem = ({ monster }) => {
               <p>Challenge Rating: {monster.challenge_rating}</p>
             </Details>
             <Controls>
-              <button>Add to Combat</button>
+              <button
+                onClick={() => {
+                  dispatch(loadAddMonster());
+                  dispatch(addMonster());
+                }}
+              >
+                Add to Combat
+              </button>
               <button onClick={() => setDetailsVisible(!detailsVisible)}>
                 More Details
               </button>
@@ -47,10 +60,7 @@ const MonsterItem = ({ monster }) => {
           </MonsterInfo>
 
           {detailsVisible ? (
-            <MonsterDetails
-              status={currentMonster.status}
-              monster={currentMonster}
-            />
+            <MonsterDetails status={monsterData.status} monster={monster} />
           ) : (
             <></>
           )}

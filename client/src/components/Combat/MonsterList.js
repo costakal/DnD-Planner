@@ -16,9 +16,6 @@ const MonsterList = () => {
   const [filteredType, setFilteredType] = useState("");
   const [monsterName, setmonsterName] = useState("");
   const [viewDropdown, setViewDropdown] = useState(false);
-  const [pages, setPages] = useState("");
-
-  console.log(pages);
 
   return (
     <Wrapper>
@@ -26,7 +23,7 @@ const MonsterList = () => {
         <div>
           <Icon icon={search} />
           <input
-            placeholder="Ex. Dragon, DireWolf, etc."
+            placeholder="Ex. Dragon, Direwolf, etc."
             value={monsterName}
             onChange={(ev) => {
               setmonsterName(ev.target.value);
@@ -158,9 +155,13 @@ const Header = styled.div`
   font-size: 16px;
   button {
     cursor: pointer;
-    border: none;
     background: none;
+    border: none;
     font-size: 16px;
+    &:hover {
+      background: darkred;
+      color: white;
+    }
   }
   input {
     border: none;

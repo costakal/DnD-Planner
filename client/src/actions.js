@@ -46,3 +46,13 @@ export const getMonsterDetails = (monsters) => ({
   type: "GET_MONSTER_DETAILS",
   monsters,
 });
+
+// add to initiative
+export const loadAddMonster = () => ({
+  type: "LOAD_ADD_TO_INITIATIVE",
+});
+
+export const addMonster = (monster) => ({
+  type: "ADD_TO_INITIATIVE",
+  monster,
+});
