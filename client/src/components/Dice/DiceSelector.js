@@ -91,10 +91,15 @@ const DiceSelector = () => {
 export default DiceSelector;
 
 const Wrapper = styled.div`
+  align-self: flex-end;
   flex-grow: 1;
-  width: 600px;
   height: 400px;
-  border: solid 2px black;
+  border: 3px solid black;
+  margin: 15px;
+  background-color: rgb(255, 255, 255, 0.8);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 3px;
 `;
 
 const DiceModifiers = styled.div`

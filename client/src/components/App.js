@@ -19,7 +19,6 @@ import DiceSelector from "./Dice/DiceSelector";
 const App = () => {
   const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.currentUserReducer.currentUser);
-  const monsters = useSelector((state) => state.monstersReducer);
 
   useEffect(() => {
     fetch("/monsters")
@@ -30,39 +29,10 @@ const App = () => {
       });
   }, []);
 
-  // let monsterDetailsArray = [];
-
-  // useEffect(() => {
-  //   if (monsters.status === "ready") {
-  //     monsters.monsterList.results.forEach((monster) => {
-  //       fetch(`/monsters/${monster.index}`)
-  //         .then((res) => res.json())
-  //         .then((data) => {
-  //           monsterDetailsArray.push(data);
-  //           console.log(
-  //             monsters.monsterList.results.length,
-  //             monsterDetailsArray.length
-  //           );
-  //           if (
-  //             monsters.monsterList.results.length === monsterDetailsArray.length
-  //           ) {
-  // dispatch(loadMonsterDetails());
-  // dispatch(getMonsterDetails(monsterDetailsArray));
-  //           }
-  //         })
-  //         .catch((err) => {
-  //           dispatch(loadMonsterDetails());
-  //           dispatch(getMonsterDetails(monsterDetailsArray));
-  //         });
-  //     });
-  //   }
-  // }, [monsters.status]);
-
   useEffect(() => {
     fetch("/allmonsters")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch(loadMonsterDetails());
         dispatch(getMonsterDetails(data));
       });

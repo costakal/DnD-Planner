@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+import Icon from "react-icons-kit";
+import { arrowLeft } from "react-icons-kit/typicons/arrowLeft";
+import { arrowRight } from "react-icons-kit/typicons/arrowRight";
 
-const Paginate = ({ monsters, setPageNumber }) => {
+const Paginate = ({ setPageNumber }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const monsterPages = Math.ceil(monsters.monsterList.count / 10);
+  const monsterPages = Math.ceil(322 / 10);
 
   // mainly functional but some weird bugs to be fixed here!!!
   let maxPages = monsterPages;
@@ -40,17 +44,45 @@ const Paginate = ({ monsters, setPageNumber }) => {
   };
 
   return (
-    <div>
-      <div> Current Page: {currentPage} </div>
+    <Wrapper>
       <div>
-        <button onClick={prevPage}> &lsaquo; </button>
+        <button onClick={prevPage}>
+          <Icon icon={arrowLeft} />
+        </button>
         {items.map((item, index) => (
           <button key={index}>{item}</button>
         ))}
-        <button onClick={nextPage}> &rsaquo; </button>
+        <button onClick={nextPage}>
+          <Icon icon={arrowRight} />
+        </button>
       </div>
-    </div>
+      <h2>Page: {currentPage} </h2>
+    </Wrapper>
   );
 };
 
 export default Paginate;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  h2 {
+    padding: 5px 10px;
+  }
+  div {
+    button {
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      background: white;
+      border-radius: 15px;
+      border: none;
+      &:hover {
+        background: darkred;
+        color: white;
+      }
+    }
+  }
+`;

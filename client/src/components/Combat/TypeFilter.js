@@ -17,7 +17,6 @@ const TypeFilter = ({ setFilteredType, setPageNumber }) => {
 
   return (
     <Wrapper>
-      <h2>Filter by monsters</h2>
       <div>{monsterTypeButton("All", "")}</div>
       <div>{monsterTypeButton("Aberration", "aberration")}</div>
       <div>{monsterTypeButton("Beast", "beast")}</div>
@@ -40,6 +39,27 @@ const TypeFilter = ({ setFilteredType, setPageNumber }) => {
 export default TypeFilter;
 
 const Wrapper = styled.div`
+  position: absolute;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  max-width: 200px;
+  background-color: white;
+  margin-top: 10px;
+  box-shadow: 0px 18px 40px -17px rgba(0, 0, 0, 0.75);
+  div {
+    display: flex;
+    justify-content: center;
+    &:hover {
+      background: darkred;
+    }
+    button {
+      padding: 5px 0px;
+      min-width: 150px;
+      background: none;
+      border: none;
+      &:hover {
+        color: white;
+      }
+    }
+  }
 `;

@@ -30,14 +30,22 @@ const MonsterItem = ({ monster }) => {
     <Wrapper>
       {currentMonster.status === "ready" ? (
         <>
-          <li key={monster.index}>{monster.name}</li>
-          <p style={{ fontStyle: "italic" }}> {monster.type}</p>
+          <MonsterInfo>
+            <Details>
+              <li key={monster.index}>{monster.name}</li>
+              <p style={{ fontStyle: "italic", color: "red" }}>
+                {monster.type}
+              </p>
+              <p>Challenge Rating: {monster.challenge_rating}</p>
+            </Details>
+            <Controls>
+              <button>Add to Combat</button>
+              <button onClick={() => setDetailsVisible(!detailsVisible)}>
+                More Details
+              </button>
+            </Controls>
+          </MonsterInfo>
 
-          <p>Challenge Rating: {monster.challenge_rating}</p>
-          <button>Add to Combat</button>
-          <button onClick={() => setDetailsVisible(!detailsVisible)}>
-            More Details
-          </button>
           {detailsVisible ? (
             <MonsterDetails
               status={currentMonster.status}
@@ -62,3 +70,11 @@ const Wrapper = styled.div`
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.8);
 `;
+
+const MonsterInfo = styled.div`
+  display: flex;
+`;
+
+const Controls = styled.div``;
+
+const Details = styled.div``;

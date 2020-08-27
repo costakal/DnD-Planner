@@ -51,9 +51,11 @@ table {
 /* ---------------- END OF CSS RESET ------------------ */
 
 body{
-    
+    font-family: 'Poppins', sans-serif;
+	input, button{
+		font-family: 'Poppins', sans-serif;
+	}
 }
-
 `;
 
 export default GlobalStyles;
