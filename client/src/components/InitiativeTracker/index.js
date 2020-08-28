@@ -1,51 +1,19 @@
-import React, { useState, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import update from "immutability-helper";
 
 import InitiativeMonster from "./IntiativeMonster";
-import { addMonster } from "../../actions";
 
 const InitiativeTracker = () => {
-  const dispatch = useDispatch();
   const initiative = useSelector((state) => state.addToInitiative);
 
-  console.log(initiative.monsterArray);
-
-  const [cards, setCards] = useState(initiative.monsterArray);
-
-  console.log(cards);
-
-  const moveCard = useCallback(
-    (dragIndex, hoverIndex) => {
-      console.log(dragIndex);
-      const dragCard = initiative.monsterArray[dragIndex];
-      dispatch(
-        addMonster(
-          update(initiative.monsterArray, {
-            $splice: [
-              [dragIndex, 1],
-              [hoverIndex, 0, dragCard],
-            ],
-          })
-        )
-      );
-    },
-    [initiative.monsterArray]
-  );
-
+  console.log(initiative);
   return (
     <Wrapper>
       {initiative.status === "ready" ? (
         <>
-          {Object.keys(initiative.monsterInit).map((key, index) => (
-            <InitiativeMonster
-              key={key}
-              monsterKey={key}
-              index={index}
-              id={index}
-              moveCard={moveCard}
-            />
+          {Object.keys(initiative.monsterInit).map((key) => (
+            <InitiativeMonster monsterKey={key} />
           ))}
         </>
       ) : (

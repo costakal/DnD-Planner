@@ -3,7 +3,6 @@ const initialState = {
   monsterInit: {},
   numOfMonsters: 0,
   combatParticipants: 0,
-  monsterArray: [],
 };
 
 export default function addToInitiative(state = initialState, action) {
@@ -30,7 +29,6 @@ export default function addToInitiative(state = initialState, action) {
             current_hit_points: action.monster.hit_points,
           },
         },
-        monsterArray: Object.values(state.monsterInit),
       };
     case "DELETE_FROM_INITIATIVE": {
       const updatedInitiative = { ...state };
