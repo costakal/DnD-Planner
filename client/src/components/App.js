@@ -6,7 +6,6 @@ import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
 import Home from "./Home";
 import CampaignSelect from "./Campaign/CampaignSelect/CampaignSelect";
-import SignIn from "./SignIn";
 import CombatTracker from "./Combat/CombatTracker";
 import {
   loadMonsters,
@@ -14,7 +13,6 @@ import {
   loadMonsterDetails,
   getMonsterDetails,
 } from "../actions";
-import DiceSelector from "./Dice/DiceSelector";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,6 +25,7 @@ const App = () => {
         dispatch(loadMonsters());
         dispatch(gettingMonsterList(data));
       });
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -36,29 +35,26 @@ const App = () => {
         dispatch(loadMonsterDetails());
         dispatch(getMonsterDetails(data));
       });
+    // eslint-disable-next-line
   }, []);
 
   return (
     <>
       <GlobalStyles />
+      <Header />
       <Switch>
         <Route exact path={["/", "/home"]}>
-          <Header />
           <Home />
         </Route>
         <Route exact path="/campaign">
-          <SignIn />
           <CampaignSelect />
         </Route>
         <Route path="/campaign/:campaign/overview"></Route>
         <Route path="/combat">
           <CombatTracker />
         </Route>
-        <Route path="/dice">
-          <DiceSelector />
-        </Route>
       </Switch>
-      {/* {loggedIn ? <Redirect to="/campaign" /> : <Redirect to="/home" />} */}
+      {loggedIn ? <Redirect to="/campaign" /> : <Redirect to="/home" />}
     </>
   );
 };

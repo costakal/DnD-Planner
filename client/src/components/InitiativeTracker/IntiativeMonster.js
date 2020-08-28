@@ -18,7 +18,6 @@ const InitiativeMonster = ({ monsterKey, id, index, moveCard }) => {
 
   const [greenPercentage, setGreenPercentage] = useState(100);
   const [redPercentage, setRedPercentage] = useState(100);
-  const [initiative, setInitiative] = useState(null);
 
   useEffect(() => {
     setGreenPercentage(
@@ -27,6 +26,7 @@ const InitiativeMonster = ({ monsterKey, id, index, moveCard }) => {
     setRedPercentage(
       Math.floor((monster.current_hit_points / monster.hit_points) * 100)
     );
+    // eslint-disable-next-line
   }, [monster.current_hit_points]);
 
   return (
@@ -41,7 +41,7 @@ const InitiativeMonster = ({ monsterKey, id, index, moveCard }) => {
       <Header>
         <h2>{monster.name}</h2>
         <div>
-          <input value={initiative} />
+          <input />
           <Icon icon={power} />
           <h2>Initative:</h2>
         </div>
@@ -61,7 +61,7 @@ const InitiativeMonster = ({ monsterKey, id, index, moveCard }) => {
     rgba(179, 0, 0, 1) ${redPercentage}%`,
           }}
         />
-        <img src={heart} />
+        <img src={heart} alt={"heart"} />
       </Health>
 
       <h2>

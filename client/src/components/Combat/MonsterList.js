@@ -123,7 +123,7 @@ export default MonsterList;
 
 const Wrapper = styled.div`
   border: 3px solid black;
-  margin: 15px;
+  margin: 65px 15px 15px;
   background-color: rgb(255, 255, 255, 0.8);
   width: 100%;
   max-width: 500px;

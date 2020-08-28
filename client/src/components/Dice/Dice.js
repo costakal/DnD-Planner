@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Dice = ({ roll, image, setTotal, setResults }) => {
@@ -10,7 +10,7 @@ const Dice = ({ roll, image, setTotal, setResults }) => {
           setResults(roll.output);
         }}
       >
-        <img src={image} style={{ width: "100%" }} />
+        <img alt={image} src={image} style={{ width: "100%" }} />
       </button>
     </Wrapper>
   );

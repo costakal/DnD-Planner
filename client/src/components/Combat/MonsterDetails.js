@@ -157,7 +157,7 @@ const MonsterDetails = ({ monster, status }) => {
             ) : (
               <></>
             )}
-            {monster.damage_immunities.length == 0 ? (
+            {monster.damage_immunities.length === 0 ? (
               <></>
             ) : (
               <div>
@@ -169,7 +169,7 @@ const MonsterDetails = ({ monster, status }) => {
                 </h4>
               </div>
             )}
-            {monster.damage_resistances.length == 0 ? (
+            {monster.damage_resistances.length === 0 ? (
               <></>
             ) : (
               <div>
@@ -181,7 +181,7 @@ const MonsterDetails = ({ monster, status }) => {
                 </h4>
               </div>
             )}
-            {monster.damage_vulnerabilities.length == 0 ? (
+            {monster.damage_vulnerabilities.length === 0 ? (
               <></>
             ) : (
               <div>
@@ -193,7 +193,7 @@ const MonsterDetails = ({ monster, status }) => {
                 </h4>
               </div>
             )}
-            {monster.condition_immunities.length == 0 ? (
+            {monster.condition_immunities.length === 0 ? (
               <></>
             ) : (
               <div>
