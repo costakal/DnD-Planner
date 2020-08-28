@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
@@ -40,25 +42,27 @@ const App = () => {
 
   return (
     <>
-      <GlobalStyles />
-      <Switch>
-        <Route exact path={["/", "/home"]}>
-          <Header />
-          <Home />
-        </Route>
-        <Route exact path="/campaign">
-          <SignIn />
-          <CampaignSelect />
-        </Route>
-        <Route path="/campaign/:campaign/overview"></Route>
-        <Route path="/combat">
-          <CombatTracker />
-        </Route>
-        <Route path="/dice">
-          <DiceSelector />
-        </Route>
-      </Switch>
-      {/* {loggedIn ? <Redirect to="/campaign" /> : <Redirect to="/home" />} */}
+      <DndProvider backend={HTML5Backend}>
+        <GlobalStyles />
+        <Switch>
+          <Route exact path={["/", "/home"]}>
+            <Header />
+            <Home />
+          </Route>
+          <Route exact path="/campaign">
+            <SignIn />
+            <CampaignSelect />
+          </Route>
+          <Route path="/campaign/:campaign/overview"></Route>
+          <Route path="/combat">
+            <CombatTracker />
+          </Route>
+          <Route path="/dice">
+            <DiceSelector />
+          </Route>
+        </Switch>
+        {/* {loggedIn ? <Redirect to="/campaign" /> : <Redirect to="/home" />} */}
+      </DndProvider>
     </>
   );
 };
