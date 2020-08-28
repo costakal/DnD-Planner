@@ -20,16 +20,6 @@ const MonsterList = () => {
   return (
     <Wrapper>
       <Header>
-        <div>
-          <Icon icon={search} />
-          <input
-            placeholder="Ex. Dragon, Direwolf, etc."
-            value={monsterName}
-            onChange={(ev) => {
-              setmonsterName(ev.target.value);
-            }}
-          />
-        </div>
         <button
           onClick={() => {
             setViewDropdown(!viewDropdown);
@@ -45,6 +35,16 @@ const MonsterList = () => {
             />
           </div>
         </button>
+        <div>
+          <Icon icon={search} />
+          <input
+            placeholder="Ex. Dragon, Direwolf, etc."
+            value={monsterName}
+            onChange={(ev) => {
+              setmonsterName(ev.target.value);
+            }}
+          />
+        </div>
       </Header>
       {monsterArray.status === "ready" ? (
         <>
@@ -158,6 +158,7 @@ const Header = styled.div`
     background: none;
     border: none;
     font-size: 16px;
+    transition: 0.2s;
     &:hover {
       background: darkred;
       color: white;

@@ -5,7 +5,10 @@ import { createNewEncounter } from "../../actions";
 
 const SaveModal = ({ handleClose }) => {
   const dispatch = useDispatch();
-  const monsters = useSelector((state) => state.addToInitiative.monsterInit);
+  // const monsters = useSelector((state) => state.addToInitiative.monsterInit);
+  const monsterDetails = useSelector((state) => state.addToInitiative);
+  const { monsterInit, numOfMonsters, combatParticipants } = monsterDetails;
+  const userEmail = useSelector((state) => state.currentUserReducer);
 
   const [nameValue, setNameValue] = useState(null);
   const [descValue, setDescValue] = useState(null);
@@ -29,7 +32,7 @@ const SaveModal = ({ handleClose }) => {
           }}
         />
         <p>Monsters in this encounter: </p>
-        {Object.values(monsters).map((monster) => (
+        {Object.values(monsterInit).map((monster) => (
           <p>
             {monster.name}
             <span>: CR {monster.challenge_rating}</span>
@@ -38,7 +41,29 @@ const SaveModal = ({ handleClose }) => {
 
         <button
           onClick={() => {
-            dispatch(createNewEncounter(nameValue, descValue, monsters));
+            const encounterData = {
+              nameValue,
+              descValue,
+              monsterInit,
+              numOfMonsters,
+              combatParticipants,
+              userEmail,
+            };
+            fetch("/saveEncounters", {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(encounterData),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+              })
+              .catch((err) => {
+                console.error(err);
+              });
             handleClose();
           }}
         >

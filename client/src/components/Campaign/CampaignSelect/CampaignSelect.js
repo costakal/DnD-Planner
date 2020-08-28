@@ -3,11 +3,7 @@ import styled from "styled-components";
 import bg from "../../../assets/battle-bg.jpg";
 
 const CampaignSelect = () => {
-  return (
-    <Wrapper>
-      <h1>Hello</h1>
-    </Wrapper>
-  );
+  return <Wrapper></Wrapper>;
 };
 
 export default CampaignSelect;

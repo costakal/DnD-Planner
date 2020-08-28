@@ -1,15 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const SavedEncounter = () => {
+  const encounter = useSelector((state) => state.addEncounter);
   return (
     <Wrapper>
-      <h2>Encounter Name X</h2>
+      <h2>{encounter.encounterName}</h2>
+      <p>Description: {encounter.encounterDesc}</p>
       <p>
-        This is where the encounter details will go. All information can be
-        typed in here.
+        Monsters:{" "}
+        {Object.values(encounter.encounterMonsters).map((monster) => (
+          <span>{monster.name}, </span>
+        ))}
       </p>
-      <p>Monsters: Monster 1, Monster 2, Monster 3</p>
     </Wrapper>
   );
 };

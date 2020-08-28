@@ -8,9 +8,6 @@ const SelectEncounters = () => {
   return (
     <Wrapper>
       <SavedEncounter />
-      <SavedEncounter />
-      <SavedEncounter />
-      <SavedEncounter />
     </Wrapper>
   );
 };
