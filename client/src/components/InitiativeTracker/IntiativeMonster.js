@@ -9,7 +9,7 @@ import heart from "../../assets/heart.png";
 
 import { removeMonster, updateHealth } from "../../actions";
 
-const InitiativeMonster = ({ monsterKey, id, index, moveCard }) => {
+const InitiativeMonster = ({ monsterKey }) => {
   const dispatch = useDispatch();
 
   const monster = useSelector(

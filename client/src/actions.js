@@ -67,3 +67,11 @@ export const updateHealth = (health, monsterKey) => ({
   health,
   monsterKey,
 });
+
+// Create new encounter
+export const createNewEncounter = (name, description, monsterObj) => ({
+  type: "CREATE_NEW_ENCOUNTER",
+  name,
+  description,
+  monsterObj,
+});

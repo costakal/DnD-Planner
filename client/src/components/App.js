@@ -7,6 +7,7 @@ import Header from "./Header";
 import Home from "./Home";
 import CampaignSelect from "./Campaign/CampaignSelect/CampaignSelect";
 import CombatTracker from "./Combat/CombatTracker";
+import SelectEncounters from "./Encounters/SelectEncounter";
 import {
   loadMonsters,
   gettingMonsterList,
@@ -52,6 +53,9 @@ const App = () => {
         <Route path="/campaign/:campaign/overview"></Route>
         <Route path="/combat">
           <CombatTracker />
+        </Route>
+        <Route path="/encounters">
+          <SelectEncounters />
         </Route>
       </Switch>
       {loggedIn ? <Redirect to="/campaign" /> : <Redirect to="/home" />}

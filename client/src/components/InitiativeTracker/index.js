@@ -1,25 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import InitiativeMonster from "./IntiativeMonster";
+import SaveModal from "./SaveModal";
 
 const InitiativeTracker = () => {
   const initiative = useSelector((state) => state.addToInitiative);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  console.log(initiative);
+  const handleClose = () => setModalVisible(false);
+
   return (
-    <Wrapper>
-      {initiative.status === "ready" ? (
-        <>
-          {Object.keys(initiative.monsterInit).map((key) => (
-            <InitiativeMonster monsterKey={key} />
-          ))}
-        </>
-      ) : (
-        <></>
-      )}
-    </Wrapper>
+    <>
+      {modalVisible ? <SaveModal handleClose={handleClose} /> : <></>}
+      <Wrapper>
+        {initiative.status === "ready" ? (
+          <>
+            {Object.keys(initiative.monsterInit).map((key) => (
+              <InitiativeMonster monsterKey={key} />
+            ))}
+          </>
+        ) : (
+          <></>
+        )}
+        {Object.keys(initiative.monsterInit).length > 0 ? (
+          <Save
+            onClick={() => {
+              setModalVisible(true);
+            }}
+          >
+            Save Encounter
+          </Save>
+        ) : (
+          <></>
+        )}
+      </Wrapper>
+    </>
   );
 };
 
@@ -50,3 +67,5 @@ const Wrapper = styled.div`
     background: #666;
   }
 `;
+
+const Save = styled.button``;
