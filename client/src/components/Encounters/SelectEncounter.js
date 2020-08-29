@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import bg from "../../assets/battle-bg2.jpg";
 
 import SavedEncounter from "./SavedEncounter";
@@ -33,7 +33,7 @@ const SelectEncounters = () => {
               .filter(
                 (enc) => enc.userEmail.currentUser.email === currentUser.email
               )
-              .map((enc) => <SavedEncounter encounter={enc} />)
+              .map((enc) => <SavedEncounter key={enc._id} encounter={enc} />)
           ) : (
             <div>There are appears to be nothing here! Get Creating!</div>
           )}
@@ -47,15 +47,6 @@ const SelectEncounters = () => {
 
 export default SelectEncounters;
 
-const fade = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -67,5 +58,4 @@ const Wrapper = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 50px;
-  animation: ${fade} 500ms ease-in;
 `;

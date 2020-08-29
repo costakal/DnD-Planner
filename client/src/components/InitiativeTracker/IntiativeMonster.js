@@ -8,6 +8,7 @@ import { power } from "react-icons-kit/icomoon/power";
 import heart from "../../assets/heart.png";
 
 import { removeMonster, updateHealth } from "../../actions";
+import MonsterModal from "../Combat/MonsterModal";
 
 const InitiativeMonster = ({ monsterKey }) => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const InitiativeMonster = ({ monsterKey }) => {
     (state) => state.addToInitiative.monsterInit[monsterKey]
   );
 
+  const [monsterModalVisible, setMonsterModalVisible] = useState(false);
   const [greenPercentage, setGreenPercentage] = useState(100);
   const [redPercentage, setRedPercentage] = useState(100);
 
@@ -30,67 +32,83 @@ const InitiativeMonster = ({ monsterKey }) => {
   }, [monster.current_hit_points]);
 
   return (
-    <Wrapper>
-      <button
-        onClick={() => {
-          dispatch(removeMonster(monster.monsterKey));
-        }}
-      >
-        X
-      </button>
-      <Header>
-        <h2>{monster.name}</h2>
-        <div>
-          <input />
-          <Icon icon={power} />
-          <h2>Initative:</h2>
-        </div>
+    <>
+      {monsterModalVisible === true ? (
+        <MonsterModal
+          monster={monster}
+          setMonsterModalVisible={setMonsterModalVisible}
+        />
+      ) : (
+        <></>
+      )}
+      <Wrapper>
+        <button
+          onClick={() => {
+            dispatch(removeMonster(monster.monsterKey));
+          }}
+        >
+          X
+        </button>
+        <Header>
+          <button
+            onClick={() => {
+              setMonsterModalVisible(true);
+            }}
+          >
+            {monster.name}
+          </button>
+          <div>
+            <input />
+            <Icon icon={power} />
+            <h2>Initative:</h2>
+          </div>
 
-        <div>
-          <h2>Armor Class:</h2>
-          <Icon icon={shield} />
-          <p>{monster.armor_class}</p>
-        </div>
-      </Header>
-      <Health>
-        <HealthBar
-          style={{
-            background: `linear-gradient(
+          <div>
+            <h2>Armor Class:</h2>
+            <Icon icon={shield} />
+            <p>{monster.armor_class}</p>
+          </div>
+        </Header>
+        <Health>
+          <HealthBar
+            style={{
+              background: `linear-gradient(
     90deg,
     rgba(35, 134, 61, 1) ${greenPercentage}%,
     rgba(179, 0, 0, 1) ${redPercentage}%`,
-          }}
-        />
-        <img src={heart} alt={"heart"} />
-      </Health>
+            }}
+          />
+          <img src={heart} alt={"heart"} />
+        </Health>
 
-      <h2>
-        <span>{monster.current_hit_points}</span>/{monster.hit_points}
-      </h2>
-      <p>
-        Damage:
-        <input
-          onKeyDown={(ev) => {
-            if (ev.key === "Enter") {
-              const newHealth = monster.current_hit_points - ev.target.value;
-              dispatch(updateHealth(newHealth, monsterKey));
-            }
-          }}
-        />
-      </p>
-      <p>
-        Heal:
-        <input
-          onKeyDown={(ev) => {
-            if (ev.key === "Enter") {
-              const newHealth =
-                monster.current_hit_points + Number(ev.target.value);
-              dispatch(updateHealth(newHealth, monsterKey));
-            }
-          }}
-        />
-      </p>
-    </Wrapper>
+        <h2>
+          <span>{monster.current_hit_points}</span>/{monster.hit_points}
+        </h2>
+        <p>
+          Damage:
+          <input
+            onKeyDown={(ev) => {
+              if (ev.key === "Enter") {
+                const newHealth = monster.current_hit_points - ev.target.value;
+                dispatch(updateHealth(newHealth, monsterKey));
+              }
+            }}
+          />
+        </p>
+        <p>
+          Heal:
+          <input
+            onKeyDown={(ev) => {
+              if (ev.key === "Enter") {
+                const newHealth =
+                  monster.current_hit_points + Number(ev.target.value);
+                dispatch(updateHealth(newHealth, monsterKey));
+              }
+            }}
+          />
+        </p>
+      </Wrapper>
+    </>
   );
 };
 

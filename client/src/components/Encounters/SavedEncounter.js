@@ -30,8 +30,8 @@ const SavedEncounter = ({ encounter }) => {
       <p>Description: {encounter.descValue}</p>
       <p>
         Monsters:
-        {Object.values(encounter.monsterInit).map((monster) => (
-          <span>
+        {Object.values(encounter.monsterInit).map((monster, index) => (
+          <span key={`${monster.name}-${index}`}>
             {" "}
             {monster.name} : cr{monster.challenge_rating}
           </span>

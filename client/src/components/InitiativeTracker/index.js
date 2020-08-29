@@ -18,7 +18,7 @@ const InitiativeTracker = () => {
         {initiative.status === "ready" ? (
           <>
             {Object.keys(initiative.monsterInit).map((key) => (
-              <InitiativeMonster monsterKey={key} />
+              <InitiativeMonster monsterKey={key} key={key} />
             ))}
           </>
         ) : (

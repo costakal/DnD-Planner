@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import SignIn from "../SignIn";
+import { COLORS } from "../../constants";
 
 const Header = () => {
   const loggedIn = useSelector((state) => state.currentUserReducer.currentUser);
@@ -11,16 +12,48 @@ const Header = () => {
   return (
     <Wrapper>
       <Nav>
-        <NavLink exact to="/" activeStyle={{ color: "red" }}>
+        <NavLink
+          exact
+          to="/"
+          activeStyle={{
+            color: `${COLORS.primary}`,
+            textShadow: "none",
+            backgroundImage: "none",
+          }}
+        >
           About
         </NavLink>
-        <NavLink exact to="/campaign" activeStyle={{ color: "red" }}>
+        <NavLink
+          exact
+          to="/campaign"
+          activeStyle={{
+            color: `${COLORS.primary}`,
+            textShadow: "none",
+            backgroundImage: "none",
+          }}
+        >
           Campaign
         </NavLink>
-        <NavLink exact to="/encounters" activeStyle={{ color: "red" }}>
+        <NavLink
+          exact
+          to="/encounters"
+          activeStyle={{
+            color: `${COLORS.primary}`,
+            textShadow: "none",
+            backgroundImage: "none",
+          }}
+        >
           Encounters
         </NavLink>
-        <NavLink exact to="/combat" activeStyle={{ color: "red" }}>
+        <NavLink
+          exact
+          to="/combat"
+          activeStyle={{
+            color: `${COLORS.primary}`,
+            textShadow: "none",
+            backgroundImage: "none",
+          }}
+        >
           Combat
         </NavLink>
       </Nav>
@@ -45,10 +78,20 @@ const Wrapper = styled.div`
 const Nav = styled.div`
   padding: 0px 70px;
   a {
+    text-shadow: 1px 2px 4px #000000;
     padding: 0px 35px;
     font-size: 1.5em;
     color: white;
     text-decoration: none;
+    color: #fff;
+
+    background-image: linear-gradient(180deg, transparent 68%, #ad1010 0);
+    background-repeat: no-repeat;
+    background-size: 0 100%;
+    transition: background-size 0.4s ease;
+  }
+  a:hover {
+    background-size: 100% 100%;
   }
 `;
 

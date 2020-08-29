@@ -31,7 +31,7 @@ const DiceSelector = () => {
       <DiceTray total={total} results={results} />
       <DiceModifiers>
         <input
-          maxlength="3"
+          maxLength="3"
           value={diceTotal}
           onChange={(ev) => {
             setDiceTotal(ev.target.value);
