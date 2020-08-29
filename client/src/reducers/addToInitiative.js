@@ -46,6 +46,14 @@ export default function addToInitiative(state = initialState, action) {
           },
         },
       };
+    case "ADD_FROM_SAVED_ENCOUNTERS":
+      return {
+        ...state,
+        status: "ready",
+        monsterInit: action.data.monsterInit,
+        numOfMonsters: action.data.numOfMonsters,
+        combatParticipants: action.data.combatParticipants,
+      };
     default: {
       return state;
     }

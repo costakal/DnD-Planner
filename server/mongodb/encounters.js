@@ -30,4 +30,24 @@ const saveEncounter = async (req, res) => {
   console.log("disconnected!");
 };
 
-module.exports = { saveEncounter };
+const getAllEncounters = async (req, res) => {
+  const client = await MongoClient(MONGO_URI_CAMPAIGN, options);
+
+  try {
+    await client.connect();
+
+    const db = client.db("campaign");
+    console.log("connected!");
+
+    const newEncounter = await db.collection("encounters").find().toArray();
+
+    res.status(200).json(newEncounter);
+  } catch (err) {
+    res.status(500).json("Not saved");
+  }
+
+  client.close();
+  console.log("disconnected!");
+};
+
+module.exports = { saveEncounter, getAllEncounters };

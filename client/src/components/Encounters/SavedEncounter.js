@@ -1,17 +1,40 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-const SavedEncounter = () => {
-  const encounter = useSelector((state) => state.addEncounter);
+import { addSavedEncounter } from "../../actions";
+
+const SavedEncounter = ({ encounter }) => {
+  const dispatch = useDispatch();
+  let history = useHistory();
+  const getEncounterData = useSelector((state) => state.encountersReducer);
+  const { encounters } = getEncounterData;
+
+  function handleClick() {
+    history.push("/combat");
+  }
+
   return (
-    <Wrapper>
-      <h2>{encounter.encounterName}</h2>
-      <p>Description: {encounter.encounterDesc}</p>
+    <Wrapper
+      onClick={() => {
+        const selectedEncounter = encounters.find(
+          (enc) => enc._id === encounter._id
+        );
+        console.log(selectedEncounter);
+        dispatch(addSavedEncounter(selectedEncounter));
+        handleClick();
+      }}
+    >
+      <h2>{encounter.nameValue}</h2>
+      <p>Description: {encounter.descValue}</p>
       <p>
-        Monsters:{" "}
-        {Object.values(encounter.encounterMonsters).map((monster) => (
-          <span>{monster.name}, </span>
+        Monsters:
+        {Object.values(encounter.monsterInit).map((monster) => (
+          <span>
+            {" "}
+            {monster.name} : cr{monster.challenge_rating}
+          </span>
         ))}
       </p>
     </Wrapper>

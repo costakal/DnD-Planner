@@ -5,7 +5,7 @@ const initialState = {
   encounterMonsters: {},
 };
 
-export default function addEncounter(state = initialState, action) {
+export default function encountersReducer(state = initialState, action) {
   switch (action.type) {
     case "CREATE_NEW_ENCOUNTER":
       return {
@@ -17,5 +17,11 @@ export default function addEncounter(state = initialState, action) {
     default: {
       return state;
     }
+    case "GET_ALL_ENCOUNTERS":
+      return {
+        ...state,
+        status: "ready",
+        encounters: action.data,
+      };
   }
 }

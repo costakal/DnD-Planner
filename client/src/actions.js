@@ -25,17 +25,6 @@ export const gettingMonsterList = (monsters) => ({
   monsters,
 });
 
-// Get one monster
-
-export const loadMonster = () => ({
-  type: "LOAD_ONE_MONSTER",
-});
-
-export const getOneMonster = (monster) => ({
-  type: "GET_ONE_MONSTER",
-  monster,
-});
-
 //Get Monster Details
 
 export const loadMonsterDetails = () => ({
@@ -68,10 +57,20 @@ export const updateHealth = (health, monsterKey) => ({
   monsterKey,
 });
 
+export const addSavedEncounter = (data) => ({
+  type: "ADD_FROM_SAVED_ENCOUNTERS",
+  data,
+});
+
 // Create new encounter
 export const createNewEncounter = (name, description, monsterObj) => ({
   type: "CREATE_NEW_ENCOUNTER",
   name,
   description,
   monsterObj,
+});
+
+export const getAllEncounters = (data) => ({
+  type: "GET_ALL_ENCOUNTERS",
+  data,
 });

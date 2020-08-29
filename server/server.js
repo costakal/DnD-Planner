@@ -4,7 +4,7 @@ const helmet = require("helmet");
 
 const { getAllMonsters, getMonster } = require("./handlers");
 const { getAllMonsterStats } = require("./mongodb/getAllMonsterStats");
-const { saveEncounter } = require("./mongodb/saveEncounter");
+const { saveEncounter, getAllEncounters } = require("./mongodb/encounters");
 
 const PORT = 4000;
 
@@ -19,7 +19,7 @@ express()
   .get("/monsters/:monsterIndex", getMonster)
   .get("/allmonsters", getAllMonsterStats)
 
-  // .get("/encounters")
+  .get("/encounters", getAllEncounters)
   // .get("/encounters/:encounterId")
   .post("/saveEncounters", saveEncounter)
 
