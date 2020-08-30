@@ -92,3 +92,9 @@ export const getDiceResults = (results, total) => ({
   results,
   total,
 });
+
+// NEW EVENT ACTIONS
+export const saveEvent = (eventTitle, eventNPC, eventDesc, eventLocation) => ({
+  type: "SAVE_EVENT",
+  data: { eventTitle, eventNPC, eventDesc, eventLocation },
+});

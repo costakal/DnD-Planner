@@ -6,6 +6,7 @@ import monsterDetailsReducer from "./monsterDeatilsReducer";
 import addToInitiative from "./addToInitiative";
 import encountersReducer from "./encountersReducer";
 import diceReducer from "./diceReducer";
+import addNewEvent from "./addNewEvent";
 
 export default combineReducers({
   currentUserReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   addToInitiative,
   encountersReducer,
   diceReducer,
+  addNewEvent,
 });
