@@ -1,8 +1,26 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { DiceRoller } from "rpg-dice-roller";
+
+import {
+  getDiceResults,
+  updateDiceAmount,
+  updateModifier,
+} from "../../actions";
 
 const MonsterDetails = ({ monster, status }) => {
-  console.log(monster);
+  const dispatch = useDispatch();
+  const { diceAmount, total, results, modifier } = useSelector(
+    (state) => state.diceReducer
+  );
+
+  const roller = new DiceRoller();
+
+  const rollD20 = roller.roll(`${diceAmount}d20+${modifier}`);
+
+  //dispatch modifier first and then dispatch the roll results
+
   return (
     <>
       <StatBlock>
@@ -284,7 +302,28 @@ const MonsterDetails = ({ monster, status }) => {
                 {action.name}. <span>{action.desc}</span>
               </p>
               {action.attack_bonus ? (
-                <button>Attack +{action.attack_bonus}</button>
+                <button
+                  onClick={() => {
+                    const roll = roller.roll(`1d20+${action.attack_bonus}`);
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  Attack +{action.attack_bonus}
+                </button>
+              ) : (
+                <></>
+              )}
+              {action.damage ? (
+                action.damage.map((dmg) => (
+                  <button
+                    onClick={() => {
+                      const roll = roller.roll(dmg.damage_dice);
+                      dispatch(getDiceResults(roll.output, roll.total));
+                    }}
+                  >
+                    Damage: {dmg.damage_dice} {dmg.damage_type.name}
+                  </button>
+                ))
               ) : (
                 <></>
               )}

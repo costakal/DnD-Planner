@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
-const Dice = ({ roll, image, setTotal, setResults }) => {
+import { getDiceResults } from "../../actions";
+
+const Dice = ({ roll, image }) => {
+  const dispatch = useDispatch();
   return (
     <Wrapper>
       <button
         onClick={() => {
-          setTotal(roll.total);
-          setResults(roll.output);
+          dispatch(getDiceResults(roll.output, roll.total));
         }}
       >
         <img alt={image} src={image} style={{ width: "100%" }} />

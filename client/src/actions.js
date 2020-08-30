@@ -74,3 +74,21 @@ export const getAllEncounters = (data) => ({
   type: "GET_ALL_ENCOUNTERS",
   data,
 });
+
+//DICE ACTIONS
+
+export const updateModifier = (modifier) => ({
+  type: "UPDATE_MODIFIER",
+  modifier,
+});
+
+export const updateDiceAmount = (diceAmount) => ({
+  type: "UPDATE_DICE_AMOUNT",
+  diceAmount,
+});
+
+export const getDiceResults = (results, total) => ({
+  type: "GET_DICE_ROLL",
+  results,
+  total,
+});

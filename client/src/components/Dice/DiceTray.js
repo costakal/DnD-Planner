@@ -1,11 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const DiceTray = ({ total, results }) => {
+  const { lastRoll, rollBeforeLast } = useSelector(
+    (state) => state.diceReducer
+  );
+
   return (
     <Wrapper>
       <TotalRoll>{total}</TotalRoll>
       <Breakdown>{results}</Breakdown>
+      <div>
+        <p>Past Results:</p>
+        <p>{lastRoll}</p>
+        <p>{rollBeforeLast}</p>
+      </div>
     </Wrapper>
   );
 };

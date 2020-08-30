@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { DiceRoller } from "rpg-dice-roller";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 import Dice from "./Dice";
 import DiceTray from "./DiceTray";
+import {
+  updateDiceAmount,
+  updateModifier,
+  getDiceResults,
+} from "../../actions";
 
 import d4 from "../../assets/d4.svg";
 import d6 from "../../assets/d6.svg";
@@ -13,18 +19,18 @@ import d12 from "../../assets/d12.svg";
 import d20 from "../../assets/d20.svg";
 
 const DiceSelector = () => {
-  const [diceTotal, setDiceTotal] = useState(1);
-  const [modifier, setModifier] = useState(0);
-  const [results, setResults] = useState("");
-  const [total, setTotal] = useState("");
+  const dispatch = useDispatch();
+  const dice = useSelector((state) => state.diceReducer);
+  const { diceAmount, total, results, modifier } = dice;
+
   const roller = new DiceRoller();
 
-  const rollD4 = roller.roll(`${diceTotal}d4+${modifier}`);
-  const rollD6 = roller.roll(`${diceTotal}d6+${modifier}`);
-  const rollD8 = roller.roll(`${diceTotal}d8+${modifier}`);
-  const rollD10 = roller.roll(`${diceTotal}d10+${modifier}`);
-  const rollD12 = roller.roll(`${diceTotal}d12+${modifier}`);
-  const rollD20 = roller.roll(`${diceTotal}d20+${modifier}`);
+  const rollD4 = roller.roll(`${diceAmount}d4+${modifier}`);
+  const rollD6 = roller.roll(`${diceAmount}d6+${modifier}`);
+  const rollD8 = roller.roll(`${diceAmount}d8+${modifier}`);
+  const rollD10 = roller.roll(`${diceAmount}d10+${modifier}`);
+  const rollD12 = roller.roll(`${diceAmount}d12+${modifier}`);
+  const rollD20 = roller.roll(`${diceAmount}d20+${modifier}`);
 
   return (
     <Wrapper>
@@ -32,58 +38,36 @@ const DiceSelector = () => {
       <DiceModifiers>
         <input
           maxLength="3"
-          value={diceTotal}
+          value={diceAmount}
           onChange={(ev) => {
-            setDiceTotal(ev.target.value);
+            dispatch(updateDiceAmount(ev.target.value));
           }}
         />
         <p>d+</p>
         <input
+          value={modifier}
           onChange={(ev) => {
             if (ev.target.value !== "") {
-              setModifier(ev.target.value);
+              dispatch(updateModifier(ev.target.value));
             }
           }}
         />
       </DiceModifiers>
       <DiceOptions>
-        <Dice
-          roll={rollD4}
-          image={d4}
-          setResults={setResults}
-          setTotal={setTotal}
-        />
-        <Dice
-          roll={rollD6}
-          image={d6}
-          setResults={setResults}
-          setTotal={setTotal}
-        />
-        <Dice
-          roll={rollD8}
-          image={d8}
-          setResults={setResults}
-          setTotal={setTotal}
-        />
-        <Dice
-          roll={rollD10}
-          image={d10}
-          setResults={setResults}
-          setTotal={setTotal}
-        />
-        <Dice
-          roll={rollD12}
-          image={d12}
-          setResults={setResults}
-          setTotal={setTotal}
-        />
-        <Dice
-          roll={rollD20}
-          image={d20}
-          setResults={setResults}
-          setTotal={setTotal}
-        />
+        <Dice roll={rollD4} image={d4} results={results} total={total} />
+        <Dice roll={rollD6} image={d6} results={results} total={total} />
+        <Dice roll={rollD8} image={d8} results={results} total={total} />
+        <Dice roll={rollD10} image={d10} results={results} total={total} />
+        <Dice roll={rollD12} image={d12} results={results} total={total} />
+        <Dice roll={rollD20} image={d20} results={results} total={total} />
       </DiceOptions>
+      <button
+        onClick={() => {
+          dispatch(getDiceResults("", ""));
+        }}
+      >
+        Clear
+      </button>
     </Wrapper>
   );
 };

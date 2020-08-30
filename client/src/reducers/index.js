@@ -5,6 +5,7 @@ import monstersReducer from "./monstersReducer";
 import monsterDetailsReducer from "./monsterDeatilsReducer";
 import addToInitiative from "./addToInitiative";
 import encountersReducer from "./encountersReducer";
+import diceReducer from "./diceReducer";
 
 export default combineReducers({
   currentUserReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   monsterDetailsReducer,
   addToInitiative,
   encountersReducer,
+  diceReducer,
 });
