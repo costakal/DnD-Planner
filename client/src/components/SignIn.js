@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { COLORS } from "../constants";
 
 import { AppContext } from "./AppContext";
 
@@ -16,13 +17,15 @@ const SignIn = () => {
         <Wrapper>
           {user.currentUser !== null ? (
             <CurrentUserWrapper>
-              <p>Welcome {user.currentUser.displayName}</p>
-              <UserAvatar src={user.currentUser.photoURL} style={{}} />
-              <button onClick={handleSignOut}>Sign Out</button>
+              <p>
+                Welcome {user.currentUser.displayName.split(" ").slice(0, -1)}
+              </p>
+              <UserAvatar src={user.currentUser.photoURL} />
+              <SignInBut onClick={handleSignOut}>Sign Out</SignInBut>
             </CurrentUserWrapper>
           ) : (
             <div>
-              <button onClick={handleSignIn}>Sign In</button>
+              <SignInBut onClick={handleSignIn}>Sign In</SignInBut>
             </div>
           )}
         </Wrapper>
@@ -34,7 +37,13 @@ const SignIn = () => {
 export default SignIn;
 
 const Wrapper = styled.div`
-  padding: 0px 70px;
+  position: relative;
+  padding: 0px 50px;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const CurrentUserWrapper = styled.div`
@@ -46,4 +55,18 @@ const UserAvatar = styled.img`
   height: 25px;
   width: 25px;
   border-radius: 25px;
+  margin: 0px 15px;
+`;
+
+const SignInBut = styled.button`
+  padding: 5px 10px;
+  background: none;
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    background: ${COLORS.primary};
+    border: 2px solid ${COLORS.primary};
+  }
 `;

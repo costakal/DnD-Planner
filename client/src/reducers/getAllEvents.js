@@ -1,6 +1,6 @@
 const initialState = {
   status: "idle",
-  data: null,
+  data: {},
 };
 
 export default function getEvents(state = initialState, action) {

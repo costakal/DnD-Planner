@@ -114,7 +114,7 @@ export const saveEvent = (
 
 export const getAllEvents = (data) => ({
   type: "GET_ALL_EVENTS",
-  data,
+  data: { data },
 });
 
 export const loadAllEvents = () => ({

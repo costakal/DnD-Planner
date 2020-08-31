@@ -68,7 +68,7 @@ export const CampaignCard = ({ id, data, index, moveCard, status }) => {
 
   return (
     <div ref={ref} style={{ ...style, opacity }}>
-      Some text here
+      {data.eventDesc}
     </div>
   );
 };

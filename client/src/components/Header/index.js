@@ -76,7 +76,7 @@ const Wrapper = styled.div`
 `;
 
 const Nav = styled.div`
-  padding: 0px 70px;
+  padding: 0px 50px;
   a {
     text-shadow: 1px 2px 4px #000000;
     padding: 0px 35px;

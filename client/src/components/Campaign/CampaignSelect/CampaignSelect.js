@@ -1,35 +1,26 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import bg from "../../../assets/battle-bg.jpg";
 import update from "immutability-helper";
 
 import CampaignCard from "./CampaignCard";
 import AddNewCard from "./AddNewCard";
-import { getAllEvents, loadAllEvents } from "../../../actions";
+import Loading from "../../../Loading";
 
 const CampaignSelect = () => {
-  const dispatch = useDispatch();
-  const events = useSelector((state) => state.getEvents);
+  const [cards, setCards] = useState([]);
+  const [status, setStatus] = useState("idle");
   const [viewNewCardModal, setViewNewCardModal] = useState(false);
 
   useEffect(() => {
     fetch("/events")
       .then((res) => res.json())
       .then((array) => {
-        // dispatch(loadAllEvents());
-        // dispatch(getAllEvents(array));
+        setStatus("loading");
         setCards(array);
+        setStatus("ready");
       });
   }, []);
-
-  const [cards, setCards] = useState([
-    ///id is required to work well make sute to incorporate
-    { id: "543254325435344dsaf", text: "Hello" },
-    { id: "gdgt", text: "dungeons" },
-    { id: 31, text: "dragons" },
-    { id: 543, text: "scary monsters!!!" },
-  ]);
 
   const handleClose = () => {
     setViewNewCardModal(false);
@@ -64,17 +55,23 @@ const CampaignSelect = () => {
   };
   return (
     <Wrapper>
-      {viewNewCardModal ? <AddNewCard handleClose={handleClose} /> : <></>}
-      <CardSection style={{ width: "400" }}>
-        <button
-          onClick={() => {
-            setViewNewCardModal(true);
-          }}
-        >
-          Add to your Campaign
-        </button>
-        {cards.map((card, index) => renderCard(card, index))}
-      </CardSection>
+      {status === "ready" ? (
+        <>
+          {viewNewCardModal ? <AddNewCard handleClose={handleClose} /> : <></>}
+          <CardSection style={{ width: "400" }}>
+            <button
+              onClick={() => {
+                setViewNewCardModal(true);
+              }}
+            >
+              Add to your Campaign
+            </button>
+            {cards.map((card, index) => renderCard(card, index))}
+          </CardSection>
+        </>
+      ) : (
+        <Loading />
+      )}
     </Wrapper>
   );
 };
