@@ -61,13 +61,6 @@ const DiceSelector = () => {
         <Dice roll={rollD12} image={d12} results={results} total={total} />
         <Dice roll={rollD20} image={d20} results={results} total={total} />
       </DiceOptions>
-      <button
-        onClick={() => {
-          dispatch(getDiceResults("", ""));
-        }}
-      >
-        Clear
-      </button>
     </Wrapper>
   );
 };
@@ -77,7 +70,6 @@ export default DiceSelector;
 const Wrapper = styled.div`
   align-self: flex-end;
   flex-grow: 1;
-  height: 400px;
   border: 3px solid black;
   margin: 15px;
   background-color: rgb(255, 255, 255, 0.8);

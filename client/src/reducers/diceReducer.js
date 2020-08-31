@@ -16,7 +16,7 @@ export default function diceReducer(state = initialState, action) {
         status: "ready",
         total: action.total,
         results: action.results,
-        lastRoll: `${state.total} ${state.results}`,
+        lastRoll: `${state.results}`,
         rollBeforeLast: state.lastRoll,
       };
     case "UPDATE_DICE_AMOUNT":

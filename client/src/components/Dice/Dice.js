@@ -24,5 +24,13 @@ export default Dice;
 const Wrapper = styled.div`
   button {
     max-width: 100px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      border-radius: 15px;
+      background: rgb(255, 255, 255, 0.5);
+    }
   }
 `;
