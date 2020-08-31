@@ -1,6 +1,9 @@
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const multer = require("multer");
+const upload = multer({ dest: "./uploads/" });
+const fs = require("fs");
 
 const { getAllMonsters, getMonster } = require("./handlers");
 const { getAllMonsterStats } = require("./mongodb/getAllMonsterStats");
@@ -13,9 +16,9 @@ express()
   .use(helmet())
   .use(morgan("dev"))
   .use(express.json())
+  .use(express.static("./uploads"))
 
   // REST endpoints
-  .get("/bacon", (req, res) => res.status(200).json("🥓"))
   .get("/monsters", getAllMonsters)
   .get("/monsters/:monsterIndex", getMonster)
   .get("/allmonsters", getAllMonsterStats)
@@ -25,5 +28,18 @@ express()
 
   .get("/events", getAllEvents)
   .post("/saveEvent", saveEvent)
+
+  .post("/uploadFile", upload.single("imageSrc"), (req, res) => {
+    let fileType = req.file.mimetype.split("/")[1];
+    let newFileName = req.file.filename + "." + fileType;
+    fs.rename(
+      `./uploads/${req.file.filename}`,
+      `./uploads/${newFileName}`,
+      () => {
+        console.log("callback");
+        res.send("200");
+      }
+    );
+  })
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
