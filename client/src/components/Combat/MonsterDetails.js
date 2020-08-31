@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { DiceRoller } from "rpg-dice-roller";
 
+import { COLORS } from "../../constants";
+
 import {
   getDiceResults,
   updateDiceAmount,
@@ -69,9 +71,27 @@ const MonsterDetails = ({ monster, status }) => {
             <p>
               {monster.strength}{" "}
               {Math.floor((monster.strength - 10) / 2) < 0 ? (
-                <span>({Math.floor((monster.strength - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20${Math.floor((monster.strength - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  {Math.floor((monster.strength - 10) / 2)}
+                </StatButton>
               ) : (
-                <span>(+{Math.floor((monster.strength - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20+${Math.floor((monster.strength - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  +{Math.floor((monster.strength - 10) / 2)}
+                </StatButton>
               )}
             </p>
           </div>
@@ -80,9 +100,27 @@ const MonsterDetails = ({ monster, status }) => {
             <p>
               {monster.dexterity}{" "}
               {Math.floor((monster.dexterity - 10) / 2) < 0 ? (
-                <span>({Math.floor((monster.dexterity - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20${Math.floor((monster.dexterity - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  {Math.floor((monster.dexterity - 10) / 2)}
+                </StatButton>
               ) : (
-                <span>(+{Math.floor((monster.dexterity - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20+${Math.floor((monster.dexterity - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  +{Math.floor((monster.dexterity - 10) / 2)}
+                </StatButton>
               )}
             </p>
           </div>
@@ -91,9 +129,27 @@ const MonsterDetails = ({ monster, status }) => {
             <p>
               {monster.constitution}{" "}
               {Math.floor((monster.constitution - 10) / 2) < 0 ? (
-                <span>({Math.floor((monster.constitution - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20${Math.floor((monster.constitution - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  {Math.floor((monster.constitution - 10) / 2)}
+                </StatButton>
               ) : (
-                <span>(+{Math.floor((monster.constitution - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20+${Math.floor((monster.constitution - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  +{Math.floor((monster.constitution - 10) / 2)}
+                </StatButton>
               )}
             </p>
           </div>
@@ -102,9 +158,27 @@ const MonsterDetails = ({ monster, status }) => {
             <p>
               {monster.intelligence}{" "}
               {Math.floor((monster.intelligence - 10) / 2) < 0 ? (
-                <span>({Math.floor((monster.intelligence - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20${Math.floor((monster.intelligence - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  {Math.floor((monster.intelligence - 10) / 2)}
+                </StatButton>
               ) : (
-                <span>(+{Math.floor((monster.intelligence - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20+${Math.floor((monster.intelligence - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  +{Math.floor((monster.intelligence - 10) / 2)}
+                </StatButton>
               )}
             </p>
           </div>
@@ -113,9 +187,27 @@ const MonsterDetails = ({ monster, status }) => {
             <p>
               {monster.wisdom}{" "}
               {Math.floor((monster.wisdom - 10) / 2) < 0 ? (
-                <span>({Math.floor((monster.wisdom - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20${Math.floor((monster.wisdom - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  {Math.floor((monster.wisdom - 10) / 2)}
+                </StatButton>
               ) : (
-                <span>(+{Math.floor((monster.wisdom - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20+${Math.floor((monster.wisdom - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  +{Math.floor((monster.wisdom - 10) / 2)}
+                </StatButton>
               )}
             </p>
           </div>
@@ -124,9 +216,27 @@ const MonsterDetails = ({ monster, status }) => {
             <p>
               {monster.charisma}{" "}
               {Math.floor((monster.charisma - 10) / 2) < 0 ? (
-                <span>({Math.floor((monster.charisma - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20${Math.floor((monster.charisma - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  {Math.floor((monster.charisma - 10) / 2)}
+                </StatButton>
               ) : (
-                <span>(+{Math.floor((monster.charisma - 10) / 2)})</span>
+                <StatButton
+                  onClick={() => {
+                    const roll = roller.roll(
+                      `1d20+${Math.floor((monster.charisma - 10) / 2)}`
+                    );
+                    dispatch(getDiceResults(roll.output, roll.total));
+                  }}
+                >
+                  +{Math.floor((monster.charisma - 10) / 2)}
+                </StatButton>
               )}
             </p>
           </div>
@@ -141,10 +251,16 @@ const MonsterDetails = ({ monster, status }) => {
                 .filter((prof) => prof.name.includes("Saving"))
                 .map((prof) => {
                   return (
-                    <p key={prof.name}>
+                    <Button
+                      key={prof.name}
+                      onClick={() => {
+                        const roll = roller.roll(`1d20+${prof.value}`);
+                        dispatch(getDiceResults(roll.output, roll.total));
+                      }}
+                    >
                       {prof.name.replace("Saving Throw:", "")}
                       <span>+{prof.value + " "}</span>
-                    </p>
+                    </Button>
                   );
                 })}
             </SavingThrows>
@@ -158,10 +274,15 @@ const MonsterDetails = ({ monster, status }) => {
                 .filter((prof) => prof.name.includes("Skill"))
                 .map((prof) => {
                   return (
-                    <p>
+                    <Button
+                      onClick={() => {
+                        const roll = roller.roll(`1d20+${prof.value}`);
+                        dispatch(getDiceResults(roll.output, roll.total));
+                      }}
+                    >
                       {prof.name.replace("Skill:", "")}
                       <span>+{prof.value + " "}</span>
-                    </p>
+                    </Button>
                   );
                 })}
             </Skills>
@@ -299,34 +420,35 @@ const MonsterDetails = ({ monster, status }) => {
           {monster.actions.map((action) => (
             <div>
               <p>
-                {action.name}. <span>{action.desc}</span>
-              </p>
-              {action.attack_bonus ? (
-                <button
-                  onClick={() => {
-                    const roll = roller.roll(`1d20+${action.attack_bonus}`);
-                    dispatch(getDiceResults(roll.output, roll.total));
-                  }}
-                >
-                  Attack +{action.attack_bonus}
-                </button>
-              ) : (
-                <></>
-              )}
-              {action.damage ? (
-                action.damage.map((dmg) => (
-                  <button
+                {action.name}.{" "}
+                {action.attack_bonus ? (
+                  <Button
                     onClick={() => {
-                      const roll = roller.roll(dmg.damage_dice);
+                      const roll = roller.roll(`1d20+${action.attack_bonus}`);
                       dispatch(getDiceResults(roll.output, roll.total));
                     }}
                   >
-                    Damage: {dmg.damage_dice} {dmg.damage_type.name}
-                  </button>
-                ))
-              ) : (
-                <></>
-              )}
+                    Attack +{action.attack_bonus}
+                  </Button>
+                ) : (
+                  <></>
+                )}
+                {action.damage ? (
+                  action.damage.map((dmg) => (
+                    <Button
+                      onClick={() => {
+                        const roll = roller.roll(dmg.damage_dice);
+                        dispatch(getDiceResults(roll.output, roll.total));
+                      }}
+                    >
+                      Damage: {dmg.damage_dice} {dmg.damage_type.name}
+                    </Button>
+                  ))
+                ) : (
+                  <></>
+                )}
+                <span>{action.desc}</span>
+              </p>
             </div>
           ))}
         </Actions>
@@ -355,6 +477,9 @@ export default MonsterDetails;
 
 const StatBlock = styled.div`
   line-height: 1.2em;
+  padding: 10px 5px;
+  border: lightgrey 0.2px solid;
+  margin-top: 15px;
 `;
 
 const MainDetails = styled.div`
@@ -389,6 +514,38 @@ const AbilityScores = styled.div`
   }
 `;
 
+const StatButton = styled.button`
+  background: ${COLORS.primary};
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  color: white;
+  transition: 0.2s;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background: black;
+  }
+`;
+
+const Button = styled.button`
+  background: ${COLORS.primary};
+  border: none;
+  padding: 0px 5px;
+  margin: 0px 5px;
+  color: white;
+  transition: 0.2s;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    background: black;
+  }
+`;
+
 const Proficiencies = styled.div`
   padding: 5px 0px;
   border-top: solid red 1px;
@@ -411,6 +568,7 @@ const Proficiencies = styled.div`
 
 const SavingThrows = styled.div`
   display: flex;
+  margin-bottom: 5px;
   h4 {
     padding-right: 5px;
   }
@@ -423,6 +581,7 @@ const SavingThrows = styled.div`
 `;
 const Skills = styled.div`
   display: flex;
+  margin-bottom: 5px;
   h4 {
     padding-right: 5px;
   }

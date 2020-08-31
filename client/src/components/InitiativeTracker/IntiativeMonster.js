@@ -37,6 +37,7 @@ const InitiativeMonster = ({ monsterKey }) => {
         <MonsterModal
           monster={monster}
           setMonsterModalVisible={setMonsterModalVisible}
+          monsterModalVisible={monsterModalVisible}
         />
       ) : (
         <></>

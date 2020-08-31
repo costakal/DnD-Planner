@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+
 import Icon from "react-icons-kit";
 import { arrowLeft } from "react-icons-kit/typicons/arrowLeft";
 import { arrowRight } from "react-icons-kit/typicons/arrowRight";
+
+import { COLORS } from "../../constants";
 
 const Paginate = ({ setPageNumber }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,7 +83,7 @@ const Wrapper = styled.div`
       border-radius: 15px;
       border: none;
       &:hover {
-        background: darkred;
+        background: ${COLORS.primary};
         color: white;
       }
     }
