@@ -60,9 +60,14 @@ export default MonsterItem;
 
 const Wrapper = styled.div`
   margin: 5px 10px;
-  border: 1px dashed grey;
+  border: 2px solid black;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  transition: 0.2s;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
 `;
 
 const MonsterInfo = styled.div`

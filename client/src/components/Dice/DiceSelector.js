@@ -17,6 +17,7 @@ import d8 from "../../assets/d8.svg";
 import d10 from "../../assets/d10.svg";
 import d12 from "../../assets/d12.svg";
 import d20 from "../../assets/d20.svg";
+import diceIcon from "../../assets/dice-icon.png";
 
 const DiceSelector = () => {
   const dispatch = useDispatch();
@@ -36,22 +37,27 @@ const DiceSelector = () => {
     <Wrapper>
       <DiceTray total={total} results={results} />
       <DiceModifiers>
-        <input
-          maxLength="3"
-          value={diceAmount}
-          onChange={(ev) => {
-            dispatch(updateDiceAmount(ev.target.value));
-          }}
-        />
-        <p>d+</p>
-        <input
-          value={modifier}
-          onChange={(ev) => {
-            if (ev.target.value !== "") {
-              dispatch(updateModifier(ev.target.value));
-            }
-          }}
-        />
+        <label>(Total Dice)</label>
+        <div>
+          <input
+            maxLength="3"
+            value={diceAmount}
+            onChange={(ev) => {
+              dispatch(updateDiceAmount(ev.target.value));
+            }}
+          />
+          <img style={{ width: "35px" }} src={diceIcon} />
+          <span>+</span>
+          <input
+            value={modifier}
+            onChange={(ev) => {
+              if (ev.target.value !== "") {
+                dispatch(updateModifier(ev.target.value));
+              }
+            }}
+          />
+        </div>
+        <label>(Modifiers)</label>
       </DiceModifiers>
       <DiceOptions>
         <Dice roll={rollD4} image={d4} results={results} total={total} />
@@ -83,12 +89,31 @@ const DiceModifiers = styled.div`
   padding: 10px 0px;
   justify-content: center;
   align-items: center;
+  div {
+    display: flex;
+    align-items: center;
+  }
+  label {
+    font-size: 12px;
+    font-style: italic;
+    padding: 0px 15px;
+  }
   p {
   }
   input {
     font-size: 30px;
     width: 50px;
-    text-align: right;
+    text-align: center;
+    background: none;
+    border: none;
+    border-radius: 15px;
+    transition: 0.2;
+    &:hover {
+      background: white;
+    }
+    &:focus {
+      background: white;
+    }
   }
   button {
   }

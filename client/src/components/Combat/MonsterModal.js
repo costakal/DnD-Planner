@@ -41,7 +41,7 @@ const Mask = styled.div`
 `;
 const ModalContent = styled.div`
   position: relative;
-  margin: 50px;
+  margin: 50px 250px;
   min-height: 100%;
   border-radius: 2px;
   background: white;

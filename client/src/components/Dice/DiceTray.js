@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+
 import { getDiceResults } from "../../actions";
 import { COLORS } from "../../constants";
+import icon from "../../assets/dice-icon.png";
 
 const DiceTray = ({ total, results }) => {
   const dispatch = useDispatch();
@@ -15,10 +17,11 @@ const DiceTray = ({ total, results }) => {
       <Results>
         <TotalRoll>{total}</TotalRoll>
         <Breakdown>{results}</Breakdown>
+        <img src={icon} />
       </Results>
       <Past>
         <div>
-          <p style={{ textDecoration: "underline" }}>Past Results:</p>
+          <p>Past Results:</p>
           <p>{lastRoll}</p>
           <p>{rollBeforeLast}</p>
         </div>
@@ -41,18 +44,20 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  min-height: 210px;
   border-bottom: black solid 2px;
 `;
 
 const TotalRoll = styled.div`
   font-size: 80px;
-  padding: 20px;
+  padding: 40px 20px 5px;
   text-shadow: 2px 2px 14px #ffffff;
+  z-index: 2;
 `;
 
 const Breakdown = styled.div`
   text-shadow: 2px 2px 14px #ffffff;
+  z-index: 2;
 `;
 
 const Results = styled.div`
@@ -60,6 +65,11 @@ const Results = styled.div`
   flex-direction: column;
   align-items: center;
   flex-grow: 2;
+  img {
+    position: absolute;
+    opacity: 0.1;
+    z-index: 1;
+  }
 `;
 
 const Past = styled.div`
