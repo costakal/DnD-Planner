@@ -14,7 +14,7 @@ const ItemTypes = {
   CARD: "card",
 };
 
-export const CampaignCard = ({ id, text, index, moveCard }) => {
+export const CampaignCard = ({ id, data, index, moveCard, status }) => {
   const ref = useRef(null);
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
@@ -65,9 +65,10 @@ export const CampaignCard = ({ id, text, index, moveCard }) => {
   });
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
+
   return (
     <div ref={ref} style={{ ...style, opacity }}>
-      {text}
+      Some text here
     </div>
   );
 };

@@ -15,7 +15,6 @@ const SelectEncounters = () => {
   const { status, encounters } = getEncounterData;
 
   console.log(encounters);
-
   useEffect(() => {
     fetch("/encounters")
       .then((res) => res.json())

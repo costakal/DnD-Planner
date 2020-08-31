@@ -7,6 +7,7 @@ import addToInitiative from "./addToInitiative";
 import encountersReducer from "./encountersReducer";
 import diceReducer from "./diceReducer";
 import addNewEvent from "./addNewEvent";
+import getAllEvents from "./getAllEvents";
 
 export default combineReducers({
   currentUserReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   encountersReducer,
   diceReducer,
   addNewEvent,
+  getAllEvents,
 });

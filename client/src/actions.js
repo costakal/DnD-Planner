@@ -57,9 +57,9 @@ export const updateHealth = (health, monsterKey) => ({
   monsterKey,
 });
 
-export const addSavedEncounter = (data) => ({
+export const addSavedEncounter = (array) => ({
   type: "ADD_FROM_SAVED_ENCOUNTERS",
-  data,
+  data: { array },
 });
 
 // Create new encounter
@@ -94,7 +94,29 @@ export const getDiceResults = (results, total) => ({
 });
 
 // NEW EVENT ACTIONS
-export const saveEvent = (eventTitle, eventNPC, eventDesc, eventLocation) => ({
+export const loadEvent = (status) => ({
+  type: "LOAD_EVENT",
+  status,
+});
+
+export const saveEvent = (
+  eventTitle,
+  eventNPC,
+  eventDesc,
+  eventLocation,
+  user
+) => ({
   type: "SAVE_EVENT",
-  data: { eventTitle, eventNPC, eventDesc, eventLocation },
+  data: { eventTitle, eventNPC, eventDesc, eventLocation, user },
+});
+
+// GET ALL EVENTS
+
+export const getAllEvents = (data) => ({
+  type: "GET_ALL_EVENTS",
+  data,
+});
+
+export const loadAllEvents = () => ({
+  type: "LOAD_ALL_EVENTS",
 });

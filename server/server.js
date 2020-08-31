@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const { getAllMonsters, getMonster } = require("./handlers");
 const { getAllMonsterStats } = require("./mongodb/getAllMonsterStats");
 const { saveEncounter, getAllEncounters } = require("./mongodb/encounters");
+const { saveEvent, getAllEvents } = require("./mongodb/events");
 
 const PORT = 4000;
 
@@ -20,7 +21,9 @@ express()
   .get("/allmonsters", getAllMonsterStats)
 
   .get("/encounters", getAllEncounters)
-  // .get("/encounters/:encounterId")
   .post("/saveEncounters", saveEncounter)
+
+  .get("/events", getAllEvents)
+  .post("/saveEvent", saveEvent)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

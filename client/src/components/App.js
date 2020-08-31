@@ -54,7 +54,6 @@ const App = () => {
           <Route exact path="/campaign">
             <CampaignSelect />
           </Route>
-          <Route path="/campaign/:campaign/overview"></Route>
           <Route path="/combat">
             <CombatTracker />
           </Route>

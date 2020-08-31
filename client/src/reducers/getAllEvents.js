@@ -1,16 +1,16 @@
 const initialState = {
   status: "idle",
-  data: {},
+  data: null,
 };
 
-export default function addNewEvent(state = initialState, action) {
+export default function getEvents(state = initialState, action) {
   switch (action.type) {
-    case "LOAD_EVENT":
+    case "LOAD_ALL_EVENTS":
       return {
         ...state,
-        status: action.status,
+        status: "loading",
       };
-    case "SAVE_EVENT":
+    case "GET_ALL_EVENTS":
       return {
         ...state,
         status: "ready",

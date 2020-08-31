@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
-import { saveEvent } from "../../../actions";
+import { saveEvent, loadEvent } from "../../../actions";
 
 const AddNewCard = ({ handleClose }) => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.addNewEvent);
+  const newEvent = useSelector((state) => state.addNewEvent);
+  const user = useSelector((state) => state.currentUserReducer);
 
   const [eventTitle, setEventTitle] = useState("");
   const [eventLocation, setEventLocation] = useState("");
@@ -47,31 +48,48 @@ const AddNewCard = ({ handleClose }) => {
               setEventDesc(ev.target.value);
             }}
           />
-          <button
-            onClick={() => {
-              dispatch(
-                saveEvent(eventTitle, eventNPC, eventDesc, eventLocation)
-              );
-              // fetch("/saveEvent", {
-              //   method: "POST",
-              //   headers: {
-              //     Accept: "application/json",
-              //     "Content-Type": "application/json",
-              //   },
-              //   body: JSON.stringify(),
-              // })
-              //   .then((res) => res.json())
-              //   .then((data) => {
-              //     console.log(data);
-              //   })
-              //   .catch((err) => {
-              //     console.error(err);
-              //   });
-              handleClose();
-            }}
-          >
-            Save
-          </button>
+          {newEvent.status === "ready" ? (
+            <button
+              onClick={() => {
+                fetch("/saveEvent", {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(newEvent),
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    console.log(data);
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                  });
+                dispatch(loadEvent("idle"));
+                handleClose();
+              }}
+            >
+              Post
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                dispatch(loadEvent("loading"));
+                dispatch(
+                  saveEvent(
+                    eventTitle,
+                    eventNPC,
+                    eventDesc,
+                    eventLocation,
+                    user
+                  )
+                );
+              }}
+            >
+              Save
+            </button>
+          )}
         </ModalContent>
       </Wrapper>
     </>
