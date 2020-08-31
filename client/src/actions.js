@@ -104,10 +104,11 @@ export const saveEvent = (
   eventNPC,
   eventDesc,
   eventLocation,
-  user
+  user,
+  imageSrc
 ) => ({
   type: "SAVE_EVENT",
-  data: { eventTitle, eventNPC, eventDesc, eventLocation, user },
+  data: { eventTitle, eventNPC, eventDesc, eventLocation, user, imageSrc },
 });
 
 // GET ALL EVENTS

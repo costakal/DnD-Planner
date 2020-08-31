@@ -37,7 +37,7 @@ express()
       `./uploads/${newFileName}`,
       () => {
         console.log("callback");
-        res.send("200");
+        res.status(200).send(newFileName);
       }
     );
   })

@@ -68,7 +68,11 @@ export const CampaignCard = ({ id, data, index, moveCard, status }) => {
 
   return (
     <div ref={ref} style={{ ...style, opacity }}>
-      {data.eventDesc}
+      <p> {data.eventTitle}</p>
+      <p>{data.eventLocation}</p>
+      <p> {data.eventNPC}</p>
+      <p>{data.eventDesc}</p>
+      <img src={data.imageSrc} />
     </div>
   );
 };

@@ -8,12 +8,13 @@ const AddNewCard = ({ handleClose }) => {
   const dispatch = useDispatch();
   const newEvent = useSelector((state) => state.addNewEvent);
   const user = useSelector((state) => state.currentUserReducer);
-
+  console.log("newEvent", newEvent);
   const [eventTitle, setEventTitle] = useState("");
   const [eventLocation, setEventLocation] = useState("");
   const [eventNPC, setEventNPC] = useState("");
   const [eventDesc, setEventDesc] = useState("");
   const [image, setImage] = useState({});
+  const [imageSrc, setImageSrc] = useState("");
 
   const fileOnChange = (event) => {
     setImage(event.target.files[0]);
@@ -27,7 +28,9 @@ const AddNewCard = ({ handleClose }) => {
       body: formData,
     })
       .then((res) => res.text())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setImageSrc(data);
+      });
   };
 
   return (
@@ -101,7 +104,8 @@ const AddNewCard = ({ handleClose }) => {
                     eventNPC,
                     eventDesc,
                     eventLocation,
-                    user
+                    user,
+                    imageSrc
                   )
                 );
               }}
