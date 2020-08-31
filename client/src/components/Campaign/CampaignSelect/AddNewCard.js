@@ -13,6 +13,22 @@ const AddNewCard = ({ handleClose }) => {
   const [eventLocation, setEventLocation] = useState("");
   const [eventNPC, setEventNPC] = useState("");
   const [eventDesc, setEventDesc] = useState("");
+  const [image, setImage] = useState({});
+
+  const fileOnChange = (event) => {
+    setImage(event.target.files[0]);
+  };
+
+  const sendImage = () => {
+    let formData = new FormData();
+    formData.append("imageSrc", image);
+    fetch("/uploadFile", {
+      method: "post",
+      body: formData,
+    })
+      .then((res) => res.text())
+      .then((data) => console.log(data));
+  };
 
   return (
     <>
@@ -48,6 +64,9 @@ const AddNewCard = ({ handleClose }) => {
               setEventDesc(ev.target.value);
             }}
           />
+          <label>Upload an Image</label>
+          <input type="file" onChange={fileOnChange} />
+          <button onClick={sendImage}>Upload</button>
           {newEvent.status === "ready" ? (
             <button
               onClick={() => {
