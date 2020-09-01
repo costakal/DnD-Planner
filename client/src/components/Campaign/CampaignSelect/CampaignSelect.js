@@ -15,6 +15,8 @@ const CampaignSelect = () => {
   const [viewNewCardModal, setViewNewCardModal] = useState(false);
   const user = useSelector((state) => state.currentUserReducer);
 
+  console.log(user);
+
   useEffect(() => {
     fetch("/events")
       .then((res) => res.json())
@@ -73,18 +75,20 @@ const CampaignSelect = () => {
                 Add to your Campaign
               </button>
             </SideNav>
-            {/* {user.status === "ready" ? ( */}
-            <CardSection style={{ width: "400" }}>
-              {cards
-                // .filter(
-                //   (enc) =>
-                //     enc.data.user.currentUser.email === user.currentUser.email
-                // )
-                .map((card, index) => renderCard(card, index))}
-            </CardSection>
-            {/* ) : (
+            {user.status === "idle" ? (
+              <CardSection style={{ width: "400" }}>
+                {cards
+                  .filter((enc) => {
+                    console.log(enc.data.user.currentUser.email);
+                    return (
+                      enc.data.user.currentUser.email === user.currentUser.email
+                    );
+                  })
+                  .map((card, index) => renderCard(card, index))}
+              </CardSection>
+            ) : (
               <></>
-            )} */}
+            )}
           </Container>
         </>
       ) : (

@@ -59,7 +59,7 @@ export const updateHealth = (health, monsterKey) => ({
 
 export const addSavedEncounter = (array) => ({
   type: "ADD_FROM_SAVED_ENCOUNTERS",
-  data: { array },
+  data: array,
 });
 
 // Create new encounter

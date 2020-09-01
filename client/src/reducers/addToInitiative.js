@@ -47,6 +47,7 @@ export default function addToInitiative(state = initialState, action) {
         },
       };
     case "ADD_FROM_SAVED_ENCOUNTERS":
+      console.log(action);
       return {
         ...state,
         status: "ready",
