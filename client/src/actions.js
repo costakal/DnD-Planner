@@ -62,6 +62,11 @@ export const addSavedEncounter = (array) => ({
   data: array,
 });
 
+export const addInitValue = (initValue) => ({
+  type: "UPDATE_INITIATIVE_VALUE",
+  initValue,
+});
+
 // Create new encounter
 export const createNewEncounter = (name, description, monsterObj) => ({
   type: "CREATE_NEW_ENCOUNTER",

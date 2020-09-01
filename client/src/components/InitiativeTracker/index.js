@@ -14,8 +14,6 @@ const InitiativeTracker = () => {
   const initiative = useSelector((state) => state.addToInitiative);
   const [modalVisible, setModalVisible] = useState(false);
 
-  console.log(initiative);
-
   const handleClose = () => setModalVisible(false);
 
   return (

@@ -10,58 +10,67 @@ const Header = () => {
   const loggedIn = useSelector((state) => state.currentUserReducer.currentUser);
 
   return (
-    <Wrapper>
-      <Nav>
-        <NavLink
-          exact
-          to="/"
-          activeStyle={{
-            color: `${COLORS.primary}`,
-            textShadow: "none",
-            backgroundImage: "none",
-          }}
-        >
-          About
-        </NavLink>
-        <NavLink
-          exact
-          to="/campaign"
-          activeStyle={{
-            color: `${COLORS.primary}`,
-            textShadow: "none",
-            backgroundImage: "none",
-          }}
-        >
-          Campaign
-        </NavLink>
-        <NavLink
-          exact
-          to="/encounters"
-          activeStyle={{
-            color: `${COLORS.primary}`,
-            textShadow: "none",
-            backgroundImage: "none",
-          }}
-        >
-          Encounters
-        </NavLink>
-        <NavLink
-          exact
-          to="/combat"
-          activeStyle={{
-            color: `${COLORS.primary}`,
-            textShadow: "none",
-            backgroundImage: "none",
-          }}
-        >
-          Combat
-        </NavLink>
-      </Nav>
-      <SignIn />
-    </Wrapper>
+    <>
+      {loggedIn ? (
+        <Wrapper>
+          <Nav>
+            <NavLink
+              exact
+              to="/campaign"
+              activeStyle={{
+                color: `${COLORS.primary}`,
+                textShadow: "none",
+                backgroundImage: "none",
+              }}
+            >
+              Campaign
+            </NavLink>
+            <NavLink
+              exact
+              to="/encounters"
+              activeStyle={{
+                color: `${COLORS.primary}`,
+                textShadow: "none",
+                backgroundImage: "none",
+              }}
+            >
+              Encounters
+            </NavLink>
+            <NavLink
+              exact
+              to="/combat"
+              activeStyle={{
+                color: `${COLORS.primary}`,
+                textShadow: "none",
+                backgroundImage: "none",
+              }}
+            >
+              Combat
+            </NavLink>
+          </Nav>
+          <SignIn />
+        </Wrapper>
+      ) : (
+        <Wrapper>
+          <Nav>
+            <NavLink
+              exact
+              to="/"
+              activeStyle={{
+                color: `${COLORS.primary}`,
+                textShadow: "none",
+                backgroundImage: "none",
+              }}
+            >
+              About
+            </NavLink>
+          </Nav>
+          <SignIn />
+        </Wrapper>
+      )}
+    </>
   );
 };
-
 export default Header;
 
 const Wrapper = styled.div`
@@ -94,38 +103,3 @@ const Nav = styled.div`
     background-size: 100% 100%;
   }
 `;
-
-// ADD THIS WHEN ITS ALL SET UP!
-
-// const loggedIn = useSelector((state) => state.currentUserReducer.currentUser);
-
-// return (
-//   <>
-//     {loggedIn ? (
-//       <Wrapper>
-//         <Nav>
-//           <NavLink exact to="/campaign" activeStyle={{ color: "red" }}>
-//             Campaign
-//           </NavLink>
-//           <NavLink exact to="/encounters" activeStyle={{ color: "red" }}>
-//             Encounters
-//           </NavLink>
-//           <NavLink exact to="/combat" activeStyle={{ color: "red" }}>
-//             Combat
-//           </NavLink>
-//         </Nav>
-//         <SignIn />
-//       </Wrapper>
-//     ) : (
-//       <Wrapper>
-//         <Nav>
-//           <NavLink exact to="/" activeStyle={{ color: "red" }}>
-//             About
-//           </NavLink>
-//         </Nav>
-//         <SignIn />
-//       </Wrapper>
-//     )}
-//   </>
-// );
-// };
