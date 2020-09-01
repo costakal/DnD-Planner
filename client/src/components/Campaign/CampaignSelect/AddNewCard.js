@@ -3,18 +3,21 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
 import { saveEvent, loadEvent } from "../../../actions";
+import { COLORS } from "../../../constants";
 
 const AddNewCard = ({ handleClose }) => {
   const dispatch = useDispatch();
+
   const newEvent = useSelector((state) => state.addNewEvent);
   const user = useSelector((state) => state.currentUserReducer);
-  console.log("newEvent", newEvent);
+
   const [eventTitle, setEventTitle] = useState("");
   const [eventLocation, setEventLocation] = useState("");
   const [eventNPC, setEventNPC] = useState("");
   const [eventDesc, setEventDesc] = useState("");
   const [image, setImage] = useState({});
   const [imageSrc, setImageSrc] = useState("");
+  const [imageUploaded, setImageUploaded] = useState(false);
 
   const fileOnChange = (event) => {
     setImage(event.target.files[0]);
@@ -36,7 +39,12 @@ const AddNewCard = ({ handleClose }) => {
   return (
     <>
       <Wrapper>
-        <Mask onClick={handleClose}></Mask>
+        <Mask
+          onClick={() => {
+            handleClose();
+            setImageUploaded(false);
+          }}
+        ></Mask>
         <ModalContent>
           <label>New Event Title:</label>
           <input
@@ -61,15 +69,29 @@ const AddNewCard = ({ handleClose }) => {
           />
           <label>Event Details</label>
           <textarea
+            rows="10"
             value={eventDesc}
-            placeholder="Use this space to describe this room/location, NPC or event."
+            placeholder="Use this space to describe this room/location, NPC or event. Consider adding flavor text, or anything else that will help describe your event"
             onChange={(ev) => {
               setEventDesc(ev.target.value);
             }}
           />
           <label>Upload an Image</label>
-          <input type="file" onChange={fileOnChange} />
-          <button onClick={sendImage}>Upload</button>
+          <div>
+            <input type="file" onChange={fileOnChange} />
+            {!imageUploaded ? (
+              <button
+                onClick={() => {
+                  sendImage();
+                  setImageUploaded(true);
+                }}
+              >
+                Upload
+              </button>
+            ) : (
+              <p style={{ color: "darkgreen" }}>Succesfully Uploaded</p>
+            )}
+          </div>
           {newEvent.status === "ready" ? (
             <button
               onClick={() => {
@@ -90,6 +112,7 @@ const AddNewCard = ({ handleClose }) => {
                   });
                 dispatch(loadEvent("idle"));
                 handleClose();
+                setImageUploaded(false);
               }}
             >
               Post
@@ -143,7 +166,7 @@ const Mask = styled.div`
 `;
 const ModalContent = styled.div`
   position: relative;
-  margin: 50px;
+  margin: 50px 350px;
   min-height: 100%;
   border-radius: 2px;
   background: white;
@@ -151,4 +174,39 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 50px;
+  label {
+    padding: 0px 0px 5px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  textarea {
+    margin: 0px 0px 5px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  input {
+    font-size: 16px;
+    margin: 0px 0px 15px;
+  }
+  div {
+    margin: 10px 0px;
+    border: dashed lightgrey 1px;
+    padding: 15px 0px;
+    display: flex;
+    flex-direction: column;
+    button {
+      width: 200px;
+    }
+  }
+  button {
+    background: ${COLORS.primary};
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 5px 10px;
+    transition: 0.2s;
+    &:hover {
+      background: black;
+    }
+  }
 `;

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
+import { COLORS } from "../../constants";
+
 const SaveModal = ({ handleClose }) => {
   const dispatch = useDispatch();
   // const monsters = useSelector((state) => state.addToInitiative.monsterInit);
@@ -24,19 +26,22 @@ const SaveModal = ({ handleClose }) => {
           }}
         />
         <label>Encounter Details</label>
-        <input
+        <textarea
+          rows="8"
           value={descValue}
           onChange={(ev) => {
             setDescValue(ev.target.value);
           }}
         />
-        <p>Monsters in this encounter: </p>
-        {Object.values(monsterInit).map((monster) => (
-          <p>
-            {monster.name}
-            <span>: CR {monster.challenge_rating}</span>
-          </p>
-        ))}
+        <label>Monsters in this encounter: </label>
+        <div>
+          {Object.values(monsterInit).map((monster) => (
+            <p>
+              {monster.name}
+              <span>: CR {monster.challenge_rating}</span>
+            </p>
+          ))}
+        </div>
 
         <button
           onClick={() => {
@@ -97,7 +102,7 @@ const Mask = styled.div`
 `;
 const ModalContent = styled.div`
   position: relative;
-  margin: 50px;
+  margin: 50px 400px;
   min-height: 100%;
   border-radius: 2px;
   background: white;
@@ -105,4 +110,35 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 50px;
+  label {
+    padding: 0px 0px 5px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  textarea {
+    margin: 0px 0px 5px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  input {
+    font-size: 16px;
+    margin: 0px 0px 15px;
+  }
+  div {
+    padding: 10px 0px 20px;
+    span {
+      font-style: italic;
+    }
+  }
+  button {
+    background: ${COLORS.primary};
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 5px 10px;
+    transition: 0.2s;
+    &:hover {
+      background: black;
+    }
+  }
 `;
