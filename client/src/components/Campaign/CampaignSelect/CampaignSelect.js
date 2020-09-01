@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import bg from "../../../assets/battle-bg.jpg";
 import update from "immutability-helper";
@@ -6,11 +7,13 @@ import update from "immutability-helper";
 import CampaignCard from "./CampaignCard";
 import AddNewCard from "./AddNewCard";
 import Loading from "../../../Loading";
+import { COLORS } from "../../../constants";
 
 const CampaignSelect = () => {
   const [cards, setCards] = useState([]);
   const [status, setStatus] = useState("idle");
   const [viewNewCardModal, setViewNewCardModal] = useState(false);
+  const user = useSelector((state) => state.currentUserReducer);
 
   useEffect(() => {
     fetch("/events")
@@ -41,6 +44,8 @@ const CampaignSelect = () => {
     [cards]
   );
 
+  console.log(cards);
+
   const renderCard = (card, index) => {
     return (
       <CampaignCard
@@ -58,16 +63,29 @@ const CampaignSelect = () => {
       {status === "ready" ? (
         <>
           {viewNewCardModal ? <AddNewCard handleClose={handleClose} /> : <></>}
-          <CardSection style={{ width: "400" }}>
-            <button
-              onClick={() => {
-                setViewNewCardModal(true);
-              }}
-            >
-              Add to your Campaign
-            </button>
-            {cards.map((card, index) => renderCard(card, index))}
-          </CardSection>
+          <Container>
+            <SideNav>
+              <button
+                onClick={() => {
+                  setViewNewCardModal(true);
+                }}
+              >
+                Add to your Campaign
+              </button>
+            </SideNav>
+            {/* {user.status === "ready" ? ( */}
+            <CardSection style={{ width: "400" }}>
+              {cards
+                // .filter(
+                //   (enc) =>
+                //     enc.data.user.currentUser.email === user.currentUser.email
+                // )
+                .map((card, index) => renderCard(card, index))}
+            </CardSection>
+            {/* ) : (
+              <></>
+            )} */}
+          </Container>
         </>
       ) : (
         <Loading />
@@ -90,36 +108,53 @@ const Wrapper = styled.div`
   background-size: cover;
 `;
 
-const CardSection = styled.div`
-  margin: 65px 15px 15px;
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  margin: 53px 0px 0px;
+  max-height: 100vh;
+  width: 100%;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+    transition: 0.2s;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #666;
+  }
+  div {
+    button {
+      width: 200px;
+      margin: 25px;
+      padding: 5px 10px;
+      text-align: center;
+      background: ${COLORS.primary};
+      transition: 0.2s;
+      border: none;
+      color: white;
+      cursor: pointer;
+      &:hover {
+        background: black;
+      }
+    }
+  }
 `;
 
-// {
-//   id: 1,
-//   text: "Write a cool JS library",
-// },
-// {
-//   id: 2,
-//   text: "Make it generic enough",
-// },
-// {
-//   id: 3,
-//   text: "Write README",
-// },
-// {
-//   id: 4,
-//   text: "Create some examples",
-// },
-// {
-//   id: 5,
-//   text:
-//     "Spam in Twitter and IRC to promote it (note that this element is taller than the others)",
-// },
-// {
-//   id: 6,
-//   text: "???",
-// },
-// {
-//   id: 7,
-//   text: "DUngeons and drag000ns",
-// },
+const SideNav = styled.div`
+  border: 3px solid black;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  margin: 25px 0px 25px 40px;
+  height: 85px;
+`;
+
+const CardSection = styled.div`
+  margin: 25px 40px;
+`;

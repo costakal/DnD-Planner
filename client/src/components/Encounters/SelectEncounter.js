@@ -5,6 +5,7 @@ import bg from "../../assets/battle-bg2.jpg";
 
 import SavedEncounter from "./SavedEncounter";
 import { getAllEncounters } from "../../actions";
+import Loading from "../../Loading";
 
 const SelectEncounters = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const SelectEncounters = () => {
   return (
     <Wrapper>
       {status === "ready" ? (
-        <>
+        <Content>
           {encounters.length !== 0 ? (
             encounters
               .filter(
@@ -36,9 +37,11 @@ const SelectEncounters = () => {
           ) : (
             <div>There are appears to be nothing here! Get Creating!</div>
           )}
-        </>
+        </Content>
       ) : (
-        <></>
+        <>
+          <Loading />
+        </>
       )}
     </Wrapper>
   );
@@ -48,6 +51,7 @@ export default SelectEncounters;
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   height: 100vh;
   width: 100%;
@@ -56,5 +60,29 @@ const Wrapper = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 50px;
+  overflow: hidden;
+`;
+
+const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 50px 0px;
+  max-height: 93vh;
+  width: 100%;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+    transition: 0.2s;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #666;
+  }
 `;

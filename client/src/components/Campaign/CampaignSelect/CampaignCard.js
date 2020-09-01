@@ -1,14 +1,8 @@
 // Will have a temporary placeholder as the main campaign - can add new ones, will need to be stored in sever.
 
 import React, { useRef } from "react";
+import styled from "styled-components";
 import { useDrag, useDrop } from "react-dnd";
-const style = {
-  border: "1px dashed gray",
-  padding: "0.5rem 1rem",
-  marginBottom: ".5rem",
-  backgroundColor: "white",
-  cursor: "move",
-};
 
 const ItemTypes = {
   CARD: "card",
@@ -67,14 +61,67 @@ export const CampaignCard = ({ id, data, index, moveCard, status }) => {
   drag(drop(ref));
 
   return (
-    <div ref={ref} style={{ ...style, opacity }}>
-      <p> {data.eventTitle}</p>
-      <p>{data.eventLocation}</p>
-      <p> {data.eventNPC}</p>
-      <p>{data.eventDesc}</p>
-      <img src={data.imageSrc} />
-    </div>
+    <Wrapper ref={ref} style={{ opacity }}>
+      {data.imageSrc !== "" ? <img src={data.imageSrc} /> : <></>}
+      <div>
+        <Title> {data.eventTitle}</Title>
+        <Location>
+          <span>Location: </span> {data.eventLocation}
+        </Location>
+        <NPC>
+          <span>NPC's: </span>
+          {data.eventNPC}
+        </NPC>
+        <Desc>{data.eventDesc}</Desc>
+      </div>
+    </Wrapper>
   );
 };
 
 export default CampaignCard;
+
+const Wrapper = styled.div`
+  border: 2px solid black;
+  padding: 25px;
+  margin-bottom: 25px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: move;
+  display: flex;
+  transition: 0.2s;
+  img {
+    padding: 0px 20px 0px 0px;
+    max-width: 250px;
+    max-height: 250px;
+    object-fit: cover;
+  }
+  &:hover {
+    background: rgba(255, 255, 255, 0.9);
+  }
+`;
+
+const Title = styled.p`
+  margin: 0px 0px 5px;
+  font-weight: bold;
+  font-size: 22px;
+`;
+const Location = styled.p`
+  margin: 5px 0px;
+  font-style: italic;
+  span {
+    font-style: normal;
+    font-weight: 600;
+  }
+`;
+const NPC = styled.p`
+  margin: 5px 0px;
+  font-style: italic;
+  span {
+    font-style: normal;
+    font-weight: 600;
+  }
+`;
+const Desc = styled.p`
+  font-style: italic;
+  margin: 5px 0px;
+  padding: 10px 0px;
+`;
