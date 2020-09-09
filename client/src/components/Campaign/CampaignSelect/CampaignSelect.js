@@ -13,9 +13,8 @@ const CampaignSelect = () => {
   const [cards, setCards] = useState([]);
   const [status, setStatus] = useState("idle");
   const [viewNewCardModal, setViewNewCardModal] = useState(false);
+  const [refreshCards, setRefreshCards] = useState(false);
   const user = useSelector((state) => state.currentUserReducer);
-
-  console.log(user);
 
   useEffect(() => {
     fetch("/events")
@@ -25,7 +24,7 @@ const CampaignSelect = () => {
         setCards(array);
         setStatus("ready");
       });
-  }, []);
+  }, [refreshCards]);
 
   const handleClose = () => {
     setViewNewCardModal(false);
@@ -64,7 +63,15 @@ const CampaignSelect = () => {
     <Wrapper>
       {status === "ready" ? (
         <>
-          {viewNewCardModal ? <AddNewCard handleClose={handleClose} /> : <></>}
+          {viewNewCardModal ? (
+            <AddNewCard
+              handleClose={handleClose}
+              setRefreshCards={setRefreshCards}
+              refreshCards={refreshCards}
+            />
+          ) : (
+            <></>
+          )}
           <Container>
             <SideNav>
               <button

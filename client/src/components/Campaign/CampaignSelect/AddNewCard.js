@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveEvent, loadEvent } from "../../../actions";
 import { COLORS } from "../../../constants";
 
-const AddNewCard = ({ handleClose }) => {
+const AddNewCard = ({ handleClose, refreshCards, setRefreshCards }) => {
   const dispatch = useDispatch();
 
   const newEvent = useSelector((state) => state.addNewEvent);
@@ -113,6 +113,7 @@ const AddNewCard = ({ handleClose }) => {
                 dispatch(loadEvent("idle"));
                 handleClose();
                 setImageUploaded(false);
+                setRefreshCards(!refreshCards);
               }}
             >
               Post
